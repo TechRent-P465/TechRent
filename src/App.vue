@@ -1,44 +1,39 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
-import HelloWorld from "./components/HelloWorld.vue";
+import LogoLink from "./components/LogoLink.vue";
 </script>
 
 <template>
   <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="@/assets/logo.svg"
-      width="125"
-      height="125"
-    />
-
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
+      <LogoLink msg="<TechRent>" />
       <nav>
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/login">Login</RouterLink>
+        <RouterLink to="/register">Register</RouterLink>
       </nav>
     </div>
   </header>
 
-  <RouterView />
+  <RouterView id="content" />
 </template>
 
 <style scoped>
+#content {
+}
+
 header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  padding: 10px;
+  background-color: grey;
   line-height: 1.5;
   max-height: 100vh;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
 nav {
-  width: 100%;
+  z-index: 1000;
   font-size: 12px;
   text-align: center;
   margin-top: 2rem;
@@ -65,18 +60,14 @@ nav a:first-of-type {
 @media (min-width: 1024px) {
   header {
     display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
+    justify-content: space-around;
   }
 
   header .wrapper {
+    width: 80%;
     display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
   }
 
   nav {
