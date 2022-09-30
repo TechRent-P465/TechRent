@@ -21,7 +21,7 @@
         />
       </div>
       <div class="login-question">
-        <a class="forgot-password" @click="routeToRegister">
+        <a class="forgot-password" @click="routeToForgotPassword">
           Forget your password?
         </a>
       </div>
@@ -72,6 +72,9 @@ export default {
   methods: {
     routeToRegister() {
       this.$router.push("/register");
+    },
+    routeToForgotPassword() {
+      this.$router.push("/forgotpassword");
     },
   },
 };
