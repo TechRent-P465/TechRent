@@ -61,7 +61,7 @@ export default {
 
     const credentials = async () => {
       try {
-        await store.dispatch("register", {
+        await store.dispatch("forgotpassword", {
           email: email.value,
           question1: question1.value,
           question2: question2.value,
