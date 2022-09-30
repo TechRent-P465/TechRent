@@ -30,6 +30,26 @@
             placeholder="password"
           />
         </div>
+        <div class="or">
+          <h4>Security Questions</h4>
+          <hr />
+        </div>
+        <div class="input">
+          <label for="question1">What is your mother's maiden name?</label>
+          <input
+            class="form-input"
+            type="text"
+            name="question1"
+          />
+        </div>
+        <div class="input">
+          <label for="question2">What high school did you go to?</label>
+          <input
+            class="form-input"
+            type="text"
+            name="question2"
+          />
+        </div>
         <button type="submit" class="" id="register_button">Register</button>
       </form>
     </div>
@@ -49,6 +69,8 @@ export default {
     const name = ref("");
     const email = ref("");
     const password = ref("");
+    const question1 = ref("");
+    const question2 = ref("");
     const error = ref(null);
 
     const register = async () => {
@@ -57,6 +79,8 @@ export default {
           email: email.value,
           password: password.value,
           name: name.value,
+          question1: question1.value,
+          question2: question2.value
         });
 
         router.push("/");
@@ -64,7 +88,7 @@ export default {
         error.value = err.message;
       }
     };
-    return { register, name, email, password, error };
+    return { register, name, email, password, question1, question2, error };
   },
 };
 </script>

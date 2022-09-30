@@ -1,7 +1,7 @@
 <template lang="">
   <div class="container">
     <div class="forgotPassword-view">
-      <form @submit.prevent="register">
+      <form @submit.prevent="forgotpassword">
         <h2 class="">Forgot Password</h2>
 
         <div class="input">
@@ -10,7 +10,7 @@
             class="form-input"
             type="text"
             name="email"
-            placeholder="email@adress.com"
+            placeholder="email@address.com"
           />
         </div>
         <div class="input">
@@ -27,14 +27,6 @@
             class="form-input"
             type="text"
             name="question2"
-          />
-        </div>
-        <div class="input">
-          <label for="question3">What is the name of your first pet?</label>
-          <input
-            class="form-input"
-            type="text"
-            name="question3"
           />
         </div>
         <button type="submit" class="" id="continue_button">Continue</button>
@@ -56,16 +48,14 @@ export default {
     const email = ref("");
     const question1 = ref("");
     const question2 = ref("");
-    const question3 = ref("");
     const error = ref(null);
 
     const credentials = async () => {
       try {
-        await store.dispatch("register", {
+        await store.dispatch("forgotpassword", {
           email: email.value,
           question1: question1.value,
           question2: question2.value,
-          question3: question3.value,
         });
 
         router.push("/");
@@ -73,7 +63,7 @@ export default {
         error.value = err.message;
       }
     };
-    return { credentials, email, question1, question2, question3, error};
+    return { credentials, email, question1, question2, error};
   },
 };
 </script>
