@@ -1,7 +1,8 @@
 <template lang="">
   <div class="login-view">
+    <div class="close" @click="routeToDashboard"></div>
     <form @submit.prevent="login">
-      <h2 class="">Login</h2>
+      <h1 class="">Login</h1>
       <div class="input">
         <label for="email">Email address</label>
         <input
@@ -35,8 +36,10 @@
       <h4>OR</h4>
       <hr />
     </div>
-
-    <h3>Login with:</h3>
+    <div class="login-with">
+      <h3>Login with:</h3>
+      <img src="../assets/Google_Logo.png" alt="google logo" id="google" />
+    </div>
   </div>
 </template>
 
@@ -76,6 +79,9 @@ export default {
     routeToForgotPassword() {
       this.$router.push("/forgotpassword");
     },
+    routeToDashboard() {
+      this.$router.push("/");
+    },
   },
 };
 </script>
@@ -86,10 +92,10 @@ export default {
   top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 1px solid lightgray;
+  border: 1px solid var(--color-text);
   padding: 4rem 4rem;
   border-radius: 5px;
-  background: black;
+  background: var(--color-highlight);
 }
 
 .login-question {
@@ -105,12 +111,40 @@ hr {
   width: 100%;
   margin-left: 10px;
   border-width: 0;
-  background-color: lightgray;
+  background-color: var(--color-heading);
 }
 
 .or {
   display: flex;
   align-items: center;
-  margin: 15px 0;
+  margin: 20px 0;
+}
+
+.close:after {
+  display: inline-block;
+  position: fixed;
+  top: 5px;
+  right: 20px;
+  content: "\00d7";
+  font-size: 30px;
+}
+
+.close:hover {
+  cursor: pointer;
+  color: var(--color-link);
+}
+
+#google {
+  height: 40px;
+  widows: 40px;
+}
+
+#google:hover {
+  cursor: pointer;
+}
+
+.login-with {
+  display: flex;
+  justify-content: space-between;
 }
 </style>

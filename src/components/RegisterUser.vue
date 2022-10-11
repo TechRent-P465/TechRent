@@ -1,8 +1,9 @@
 <template lang="">
   <div class="container">
     <div class="register-view">
+      <div class="close" @click="routeToDashboard"></div>
       <form @submit.prevent="register">
-        <h2 class="">Register</h2>
+        <h1 class="">Register</h1>
         <div class="input">
           <label for="name">Name</label>
           <input
@@ -36,19 +37,11 @@
         </div>
         <div class="input">
           <label for="question1">What is your mother's maiden name?</label>
-          <input
-            class="form-input"
-            type="text"
-            name="question1"
-          />
+          <input class="form-input" type="text" name="question1" />
         </div>
         <div class="input">
           <label for="question2">What high school did you go to?</label>
-          <input
-            class="form-input"
-            type="text"
-            name="question2"
-          />
+          <input class="form-input" type="text" name="question2" />
         </div>
         <button type="submit" class="" id="register_button">Register</button>
       </form>
@@ -80,7 +73,7 @@ export default {
           password: password.value,
           name: name.value,
           question1: question1.value,
-          question2: question2.value
+          question2: question2.value,
         });
 
         router.push("/");
@@ -90,6 +83,18 @@ export default {
     };
     return { register, name, email, password, question1, question2, error };
   },
+
+  methods: {
+    routeToRegister() {
+      this.$router.push("/register");
+    },
+    routeToForgotPassword() {
+      this.$router.push("/forgotpassword");
+    },
+    routeToDashboard() {
+      this.$router.push("/");
+    },
+  },
 };
 </script>
 
@@ -97,12 +102,30 @@ export default {
 .register-view {
   position: fixed;
   z-index: 10000;
-  top: 50%;
+  top: 65%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  border: 1px solid lightgray;
+  transform: translate(-50%, -65%);
+  border: 1px solid var(--color-text);
   padding: 4rem 4rem;
   border-radius: 5px;
-  background: black;
+  background: var(--color-highlight);
+}
+
+#register_button {
+  width: 100%;
+}
+
+.close:after {
+  display: inline-block;
+  position: fixed;
+  top: 5px;
+  right: 20px;
+  content: "\00d7";
+  font-size: 30px;
+}
+
+.close:hover {
+  cursor: pointer;
+  color: var(--color-link);
 }
 </style>

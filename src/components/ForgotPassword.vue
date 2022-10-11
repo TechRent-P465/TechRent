@@ -1,6 +1,8 @@
 <template lang="">
   <div class="container">
     <div class="forgotPassword-view">
+      <div class="close" @click="routeToDashboard"></div>
+
       <form @submit.prevent="forgotpassword">
         <h2 class="">Forgot Password</h2>
 
@@ -15,19 +17,11 @@
         </div>
         <div class="input">
           <label for="question1">What is your mother's maiden name?</label>
-          <input
-            class="form-input"
-            type="text"
-            name="question1"
-          />
+          <input class="form-input" type="text" name="question1" />
         </div>
         <div class="input">
           <label for="question2">What high school did you go to?</label>
-          <input
-            class="form-input"
-            type="text"
-            name="question2"
-          />
+          <input class="form-input" type="text" name="question2" />
         </div>
         <button type="submit" class="" id="continue_button">Continue</button>
       </form>
@@ -63,7 +57,19 @@ export default {
         error.value = err.message;
       }
     };
-    return { credentials, email, question1, question2, error};
+    return { credentials, email, question1, question2, error };
+  },
+
+  methods: {
+    routeToRegister() {
+      this.$router.push("/register");
+    },
+    routeToForgotPassword() {
+      this.$router.push("/forgotpassword");
+    },
+    routeToDashboard() {
+      this.$router.push("/");
+    },
   },
 };
 </script>
@@ -75,9 +81,23 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 1px solid lightgray;
+  border: 1px solid var(--color-text);
   padding: 4rem 4rem;
   border-radius: 5px;
-  background: black;
+  background: var(--color-highlight);
+}
+
+.close:after {
+  display: inline-block;
+  position: fixed;
+  top: 5px;
+  right: 20px;
+  content: "\00d7";
+  font-size: 30px;
+}
+
+.close:hover {
+  cursor: pointer;
+  color: var(--color-link);
 }
 </style>
