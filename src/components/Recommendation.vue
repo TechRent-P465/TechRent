@@ -1,41 +1,44 @@
 <script setup>
 defineProps({
   ItemImage: {
-    type: Image,
-    required: true,
+    type: String,
+    default: '../assets/defaultPicRec.png'
   },
   ItemName: {
     type: String,
-    required: true,
-  },
-});
+    required: true
+  }
+})
 </script>
 
 <template lang="">
-<div class="recommendations-card">
-    <img src={{ItemImage}} alt="item image" id="itemId" />
-    <p> {{ItemName}}</p>
+  <a class="recommendations-card">
+    <img :src="ItemImage" alt="item image" id="itemId" />
+    <p>{{ ItemName }}</p>
     <nav></nav>
-</div>
+  </a>
 </template>
 
 <style scoped>
-
-.recommendations-card
-{
+.recommendations-card {
   width: 200px;
-  position:relative;
   height: 200px;
   background: var(--color-highlight);
-  margin: 10px 5px;
   padding: 20px 15px;
+  border: 5px solid var(--color-tertiary);
+  -webkit-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+  -moz-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+  box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
   display: flex;
-  box-shadow: 0.5px 10px;
-  transition: 0.3s ease-in-out;
-  margin-top: 5%;
   flex-direction: column;
-  right: 130%;
 }
 
-</style>
+.recommendations-card:hover {
+  color: var(--color-highlight);
+  background-color: var(--color-pop);
+}
 
+a {
+  color: var(--color-primary);
+}
+</style>

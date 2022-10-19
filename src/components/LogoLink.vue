@@ -1,12 +1,3 @@
-<script setup>
-defineProps({
-  msg: {
-    type: String,
-    required: true,
-  },
-});
-</script>
-
 <template>
   <div class="greetings">
     <h1 class="logo">
@@ -14,6 +5,18 @@ defineProps({
     </h1>
   </div>
 </template>
+
+<script>
+export default {
+  name: "LogoLink",
+  props: {
+    msg: {
+      type: String,
+      required: true,
+    },
+  },
+};
+</script>
 
 <style scoped>
 h1,
@@ -27,6 +30,7 @@ a {
 
 a:hover {
   color: var(--color-highlight);
+  padding: 0;
 }
 
 h3 {

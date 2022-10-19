@@ -50,21 +50,21 @@
 </template>
 
 <script>
-import { useRouter } from "vue-router";
-import { ref } from "vue";
-import { useStore } from "vuex";
+import { useRouter } from "vue-router"
+import { ref } from "vue"
+import { useStore } from "vuex"
 
 export default {
   name: "RegisterUser",
   setup() {
-    const store = useStore();
-    const router = useRouter();
-    const name = ref("");
-    const email = ref("");
-    const password = ref("");
-    const question1 = ref("");
-    const question2 = ref("");
-    const error = ref(null);
+    const store = useStore()
+    const router = useRouter()
+    const name = ref("")
+    const email = ref("")
+    const password = ref("")
+    const question1 = ref("")
+    const question2 = ref("")
+    const error = ref(null)
 
     const register = async () => {
       try {
@@ -73,40 +73,40 @@ export default {
           password: password.value,
           name: name.value,
           question1: question1.value,
-          question2: question2.value,
-        });
+          question2: question2.value
+        })
 
-        router.push("/");
+        router.push("/")
       } catch (err) {
-        error.value = err.message;
+        error.value = err.message
       }
-    };
-    return { register, name, email, password, question1, question2, error };
+    }
+    return { register, name, email, password, question1, question2, error }
   },
 
   methods: {
     routeToRegister() {
-      this.$router.push("/register");
+      this.$router.push("/register")
     },
     routeToForgotPassword() {
-      this.$router.push("/forgotpassword");
+      this.$router.push("/forgotpassword")
     },
     routeToDashboard() {
-      this.$router.push("/");
-    },
-  },
-};
+      this.$router.push("/")
+    }
+  }
+}
 </script>
 
 <style>
 .register-view {
   position: fixed;
   z-index: 10000;
-  top: 65%;
+  top: 70%;
   left: 50%;
   transform: translate(-50%, -65%);
-  border: 1px solid var(--color-text);
-  padding: 4rem 4rem;
+  border: 1px solid var(--color-primary);
+  padding: 4em 4rem;
   border-radius: 5px;
   background: var(--color-highlight);
 }
@@ -126,6 +126,6 @@ export default {
 
 .close:hover {
   cursor: pointer;
-  color: var(--color-link);
+  color: var(--color-pop);
 }
 </style>
