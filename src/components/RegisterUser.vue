@@ -2,7 +2,7 @@
   <div class="container">
     <div class="register-view">
       <div class="close" @click="routeToDashboard"></div>
-      <form @submit.prevent="register">
+      <form @submit.prevent="handleSubmit">
         <h1 class="">Register</h1>
         <div class="input">
           <label for="name">Name</label>
@@ -10,6 +10,7 @@
             class="form-input"
             type="text"
             name="name"
+            v-model="name"
             placeholder="Johnny Appleseed"
           />
         </div>
@@ -19,6 +20,7 @@
             class="form-input"
             type="text"
             name="email"
+            v-model="email"
             placeholder="email@adress.com"
           />
         </div>
@@ -28,6 +30,7 @@
             class="form-input"
             type="password"
             name="password"
+            v-model="password"
             placeholder="password"
           />
         </div>
@@ -37,11 +40,21 @@
         </div>
         <div class="input">
           <label for="question1">What is your mother's maiden name?</label>
-          <input class="form-input" type="text" name="question1" />
+          <input
+            class="form-input"
+            type="text"
+            v-model="question1"
+            name="question1"
+          />
         </div>
         <div class="input">
           <label for="question2">What high school did you go to?</label>
-          <input class="form-input" type="text" name="question2" />
+          <input
+            class="form-input"
+            type="text"
+            name="question2"
+            v-model="question2"
+          />
         </div>
         <button type="submit" class="" id="register_button">Register</button>
       </form>
@@ -50,49 +63,45 @@
 </template>
 
 <script>
-import { useRouter } from "vue-router"
-import { ref } from "vue"
-import { useStore } from "vuex"
-
+import axios from 'axios'
 export default {
-  name: "RegisterUser",
-  setup() {
-    const store = useStore()
-    const router = useRouter()
-    const name = ref("")
-    const email = ref("")
-    const password = ref("")
-    const question1 = ref("")
-    const question2 = ref("")
-    const error = ref(null)
-
-    const register = async () => {
-      try {
-        await store.dispatch("register", {
-          email: email.value,
-          password: password.value,
-          name: name.value,
-          question1: question1.value,
-          question2: question2.value
-        })
-
-        router.push("/")
-      } catch (err) {
-        error.value = err.message
-      }
+  name: 'RegisterUser',
+  data() {
+    return {
+      name: '',
+      email: '',
+      password: '',
+      question1: '',
+      question2: ''
     }
-    return { register, name, email, password, question1, question2, error }
   },
-
   methods: {
     routeToRegister() {
-      this.$router.push("/register")
+      this.$router.push('/register')
     },
     routeToForgotPassword() {
-      this.$router.push("/forgotpassword")
+      this.$router.push('/forgotpassword')
     },
     routeToDashboard() {
-      this.$router.push("/")
+      this.$router.push('/')
+    },
+    handleSubmit() {
+      const data = {
+        name: this.name,
+        email: this.email,
+        password: this.password,
+        question1: this.question1,
+        question2: this.question2
+      }
+      axios
+        .post('http://127.0.0.1:5000/register', data)
+        .then((res) => {
+          console.log(res)
+          this.$router.push('/')
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   }
 }
@@ -120,7 +129,7 @@ export default {
   position: fixed;
   top: 5px;
   right: 20px;
-  content: "\00d7";
+  content: '\00d7';
   font-size: 30px;
 }
 

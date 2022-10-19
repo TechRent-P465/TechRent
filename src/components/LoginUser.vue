@@ -1,7 +1,7 @@
 <template lang="">
   <div class="login-view">
     <div class="close" @click="routeToDashboard"></div>
-    <form @submit.prevent="login">
+    <form @submit.prevent="submit">
       <h1 class="">Login</h1>
       <div class="input">
         <label for="email">Email address</label>
@@ -30,7 +30,9 @@
         Don't have an account?
         <a class="register-account" @click="routeToRegister"> Register </a>
       </div>
-      <button type="submit" class="" id="login_button">Login</button>
+      <button type="submit" class="" id="login_button" @click="routeToLogin">
+        Login
+      </button>
     </form>
     <div class="or">
       <h4>OR</h4>
@@ -47,34 +49,27 @@
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 import { useStore } from "vuex";
+import axios from "axios";
 
 export default {
   name: "LoginUser",
-  setup() {
-    const store = useStore();
-    const router = useRouter();
-    const email = ref("");
-    const password = ref("");
-    const error = ref(null);
-
-    const login = async () => {
-      try {
-        await store.dispatch("login", {
-          email: email.value,
-          password: password.value,
-        });
-
-        router.push("/");
-      } catch (err) {
-        error.value = err.message;
-      }
+  data() {
+    return {
+      msg: "",
     };
-    return { login, email, password, error };
   },
-
   methods: {
-    routeToRegister() {
-      this.$router.push("/register");
+    getresponse() {
+      const path = "http://localhost:5000/LoginUser";
+      axios
+        .get(path)
+        .then((res) => {
+          console.log(res.data);
+          this.msg = res.data;
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     },
     routeToForgotPassword() {
       this.$router.push("/forgotpassword");
@@ -82,6 +77,9 @@ export default {
     routeToDashboard() {
       this.$router.push("/");
     },
+  },
+  created() {
+    this.getresponse();
   },
 };
 </script>
