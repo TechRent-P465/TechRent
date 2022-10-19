@@ -90,7 +90,7 @@ export default {
   top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 1px solid var(--color-text);
+  border: 1px solid var(--color-primary);
   padding: 4rem 4rem;
   border-radius: 5px;
   background: var(--color-highlight);
@@ -109,7 +109,7 @@ hr {
   width: 100%;
   margin-left: 10px;
   border-width: 0;
-  background-color: var(--color-heading);
+  background-color: var(--color-tertiary);
 }
 
 .or {
@@ -129,7 +129,7 @@ hr {
 
 .close:hover {
   cursor: pointer;
-  color: var(--color-link);
+  color: var(--color-pop);
 }
 
 #google {

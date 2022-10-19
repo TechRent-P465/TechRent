@@ -1,43 +1,40 @@
-<script setup>
-import { RouterLink, RouterView } from "vue-router";
-import LogoLink from "./components/LogoLink.vue";
-</script>
-
 <template>
   <header>
     <div class="wrapper">
       <LogoLink msg="<TechRent>" />
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/login">Login</RouterLink>
+        <router-link to="/">Home</router-link>
+        <router-link to="/login">Login</router-link>
       </nav>
     </div>
   </header>
   <div class="content-wrapper">
-    <RouterView id="content" />
+    <router-view id="content" />
   </div>
-  <footer></footer>
+  <footer>
+    <h1>Footer</h1>
+  </footer>
 </template>
 
+<script>
+//import { RouterLink, RouterView } from "vue-router";
+import LogoLink from "@/components/LogoLink.vue"
+
+export default {
+  components: {
+    LogoLink
+  }
+}
+</script>
+
 <style scoped>
+@import "./assets/normalize.css";
 .content-wrapper {
   min-height: 100%;
 }
 
 #content {
   margin: 0 auto;
-}
-
-header {
-  z-index: 1000;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  padding: 10px;
-  background-color: var(--color-secondary);
-  line-height: 1.5;
-  max-height: 100vh;
-  border-bottom: 5px solid var(--color-heading);
 }
 
 nav {
@@ -65,22 +62,23 @@ nav a:first-of-type {
   border: 0;
 }
 
-footer {
-  background-color: var(--color-heading);
-  height: 50px;
-}
-
 @media (min-width: 1024px) {
-  header {
-    display: flex;
-    justify-content: space-around;
-  }
-
   header .wrapper {
-    width: 80%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+  header {
+    position: fixed;
+    z-index: 9999999;
+    width: 100%;
+    height: 108px;
+    background: var(--color-secondary);
+    border-bottom: 5px solid var(--color-pop);
+    -webkit-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+    -moz-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+    box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+    padding: 20px 50px;
   }
 
   nav {

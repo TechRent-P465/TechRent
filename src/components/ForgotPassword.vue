@@ -35,7 +35,7 @@ import { ref } from "vue";
 import { useStore } from "vuex";
 
 export default {
-  name: "ForgotPasswordCredentials",
+  name: "ForgotPassword",
   setup() {
     const store = useStore();
     const router = useRouter();
@@ -81,7 +81,7 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 1px solid var(--color-text);
+  border: 1px solid var(--color-primary);
   padding: 4rem 4rem;
   border-radius: 5px;
   background: var(--color-highlight);
@@ -98,6 +98,6 @@ export default {
 
 .close:hover {
   cursor: pointer;
-  color: var(--color-link);
+  color: var(--color-pop);
 }
 </style>
