@@ -9,17 +9,24 @@ defineProps({
 
 <template>
   <div class="greetings">
-    <a href="https://github.com/cam-line/TechRent"
-      ><h1 class="green">{{ msg }}</h1></a
-    >
+    <h1 class="logo">
+      <a href="https://github.com/cam-line/TechRent">{{ msg }}</a>
+    </h1>
   </div>
 </template>
 
 <style scoped>
-h1 {
+h1,
+a {
   font-weight: 500;
   font-size: 2.6rem;
-  top: -10px;
+  color: var(--color-background);
+  margin: 0;
+  padding: 0;
+}
+
+a:hover {
+  color: var(--color-highlight);
 }
 
 h3 {

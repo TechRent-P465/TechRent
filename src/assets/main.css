@@ -8,14 +8,14 @@
 
 a {
   text-decoration: none;
-  color: rgb(2, 159, 183);
+  color: var(--color-link);
   transition: 0.4s;
-  padding: 0.2em;
+  padding: 0.4em;
 }
 
 button {
-  background-color: rgb(2, 159, 183);
-  color: white;
+  color: var(--color-background);
+  background-color: var(--color-link);
   padding: 0.5em;
   border-radius: 5px;
 }
@@ -23,22 +23,23 @@ button {
 .input {
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 @media (hover: hover) {
   a:hover {
-    background-color: hsla(235, 85%, 45%, 0.349);
+    background-color: var(--color-link);
+    color: var(--color-highlight);
     cursor: pointer;
-    padding: 0.2em;
+    padding: 0.4em;
     border-radius: 3px;
     transition: 0.8s;
   }
 
   button:hover {
     cursor: pointer;
-    background-color: white;
-    color: rgb(2, 159, 183);
+    background-color: var(--color-highlight);
+    color: var(--color-link);
     transition: 0.8s;
   }
 }

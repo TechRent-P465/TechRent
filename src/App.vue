@@ -10,37 +10,45 @@ import LogoLink from "./components/LogoLink.vue";
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/login">Login</RouterLink>
-        <RouterLink to="/register">Register</RouterLink>
       </nav>
     </div>
   </header>
-
-  <RouterView id="content" />
+  <div class="content-wrapper">
+    <RouterView id="content" />
+  </div>
+  <footer></footer>
 </template>
 
 <style scoped>
+.content-wrapper {
+  min-height: 100%;
+}
+
 #content {
+  margin: 0 auto;
 }
 
 header {
+  z-index: 1000;
   width: 100%;
   position: fixed;
   top: 0;
   padding: 10px;
-  background-color: grey;
+  background-color: var(--color-secondary);
   line-height: 1.5;
   max-height: 100vh;
+  border-bottom: 5px solid var(--color-heading);
 }
 
 nav {
-  z-index: 1000;
   font-size: 12px;
   text-align: center;
+  justify-content: center;
   margin-top: 2rem;
 }
 
 nav a.router-link-exact-active {
-  color: var(--color-text);
+  color: var(--color-background);
 }
 
 nav a.router-link-exact-active:hover {
@@ -55,6 +63,11 @@ nav a {
 
 nav a:first-of-type {
   border: 0;
+}
+
+footer {
+  background-color: var(--color-heading);
+  height: 50px;
 }
 
 @media (min-width: 1024px) {
@@ -74,7 +87,6 @@ nav a:first-of-type {
     text-align: left;
     margin-left: -1rem;
     font-size: 1rem;
-
     padding: 1rem 0;
     margin-top: 1rem;
   }

@@ -1,15 +1,16 @@
 <template lang="">
   <div class="container">
     <div class="register-view">
+      <div class="close" @click="routeToDashboard"></div>
       <form @submit.prevent="handleSubmit">
-        <h2 class="">Register</h2>
+        <h1 class="">Register</h1>
         <div class="input">
           <label for="name">Name</label>
           <input
             class="form-input"
             type="text"
             name="name"
-            v-model = "name"
+            v-model="name"
             placeholder="Johnny Appleseed"
           />
         </div>
@@ -61,108 +62,69 @@
   </div>
 </template>
 
-<!-- <script>
-import { useRouter } from "vue-router";
-import { ref } from "vue";
-import { useStore } from "vuex";
-import axios from 'axios';
-
+<script>
+import axios from "axios";
 export default {
   name: "RegisterUser",
-  setup() {
-    const store = useStore();
-    const router = useRouter();
-    const name = ref("");
-    const email = ref("");
-    const password = ref("");
-    const question1 = ref("");
-    const question2 = ref("");
-    const error = ref(null);
-
-    const register = async () => {
-      try {
-        await store.dispatch("register", {
-          email: email.value,
-          password: password.value,
-          name: name.value,
-          question1: question1.value,
-          question2: question2.value
-        });
-
-        router.push("/");
-      } catch (err) {
-        error.value = err.message;
-      }
+  data() {
+    return {
+      name: "",
+      email: "",
+      password: "",
+      question1: "",
+      question2: "",
     };
-    return { register, name, email, password, question1, question2, error };
   },
-  methods : {
-    getTestResponse(){
-      const path = 'http://127.0.0.1:5000/register'
-      axios.get(path)
-    .then(response => {
-      console.log(response.data);
-      this.msg = response.data;
-    })
-    .catch(err => {
-      console.log(err);
-    });
-    },
-  },
-  created() {
-    this.getTestResponse()
-  }
-};
-</script> -->
-
-<script>
-
-  import axios from 'axios';
-  export default {
-    name: 'RegisterUser',
-    data(){
-      return {
-        name:'',
-        email:'',
-        password:'',
-        question1:'',
-        question2:''
-
-      }
-    },
-    methods: {
-      handleSubmit(){
-        const data = {
-          name : this.name,
-          email : this.email,
-          password : this.password,
-          question1 : this.question1,
-          question2 : this.question2 
-        };
-        axios.post('http://127.0.0.1:5000/register',data)
-        .then(res => {
-          console.log(res)
-        }).catch(err => {
-          console.log(err)
+  methods: {
+    handleSubmit() {
+      const data = {
+        name: this.name,
+        email: this.email,
+        password: this.password,
+        question1: this.question1,
+        question2: this.question2,
+      };
+      axios
+        .post("http://127.0.0.1:5000/register", data)
+        .then((res) => {
+          console.log(res);
         })
-      }
-    }
-  }
-
-
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+};
 </script>
-
 
 <style>
 .register-view {
   position: fixed;
   z-index: 10000;
-  top: 50%;
+  top: 65%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  border: 1px solid lightgray;
+  transform: translate(-50%, -65%);
+  border: 1px solid var(--color-text);
   padding: 4rem 4rem;
   border-radius: 5px;
-  background: black;
+  background: var(--color-highlight);
+}
+
+#register_button {
+  width: 100%;
+}
+
+.close:after {
+  display: inline-block;
+  position: fixed;
+  top: 5px;
+  right: 20px;
+  content: "\00d7";
+  font-size: 30px;
+}
+
+.close:hover {
+  cursor: pointer;
+  color: var(--color-link);
 }
 </style>
