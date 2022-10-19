@@ -1,6 +1,6 @@
 <template lang="">
   <div class="login-view">
-    <form @submit.prevent="login">
+    <form @submit="submit">
       <h2 class="">Login</h2>
       <div class="input">
         <label for="email">Email address</label>
@@ -29,7 +29,7 @@
         Don't have an account?
         <a class="register-account" @click="routeToRegister"> Register </a>
       </div>
-      <button type="submit" class="" id="login_button">Login</button>
+      <button type="submit" class="" id="login_button" @click="routeToLogin">Login</button>
     </form>
     <div class="or">
       <h4>OR</h4>
@@ -41,43 +41,38 @@
 </template>
 
 <script>
-import { useRouter } from "vue-router";
-import { ref } from "vue";
-import { useStore } from "vuex";
 
-export default {
-  name: "LoginUser",
-  setup() {
-    const store = useStore();
-    const router = useRouter();
-    const email = ref("");
-    const password = ref("");
-    const error = ref(null);
 
-    const login = async () => {
-      try {
-        await store.dispatch("login", {
-          email: email.value,
-          password: password.value,
+  import { useRouter } from "vue-router";
+  import { ref } from "vue";
+  import { useStore } from "vuex";
+  import axios from 'axios';
+  
+  export default {
+    name:'LoginUser',
+    data() {
+      return {
+        msg : ""
+      };
+    },
+    methods : {
+      getresponse(){
+        const path = 'http://localhost:5000/LoginUser';
+        axios.get(path)
+        .then ((res) =>{
+          console.log(res.data)
+          this.msg = res.data
+        })
+        .catch ((err) => {
+          console.error(err)
         });
-
-        router.push("/");
-      } catch (err) {
-        error.value = err.message;
-      }
-    };
-    return { login, email, password, error };
-  },
-
-  methods: {
-    routeToRegister() {
-      this.$router.push("/register");
+      },
     },
-    routeToForgotPassword() {
-      this.$router.push("/forgotpassword");
-    },
-  },
-};
+    created(){
+      this.getresponse();
+      
+    }
+  };
 </script>
 <style scoped>
 .login-view {

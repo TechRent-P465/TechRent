@@ -1,7 +1,7 @@
 <template lang="">
   <div class="container">
     <div class="register-view">
-      <form @submit.prevent="register">
+      <form @submit.prevent="handleSubmit">
         <h2 class="">Register</h2>
         <div class="input">
           <label for="name">Name</label>
@@ -9,6 +9,7 @@
             class="form-input"
             type="text"
             name="name"
+            v-model = "name"
             placeholder="Johnny Appleseed"
           />
         </div>
@@ -18,6 +19,7 @@
             class="form-input"
             type="text"
             name="email"
+            v-model="email"
             placeholder="email@adress.com"
           />
         </div>
@@ -27,6 +29,7 @@
             class="form-input"
             type="password"
             name="password"
+            v-model="password"
             placeholder="password"
           />
         </div>
@@ -39,6 +42,7 @@
           <input
             class="form-input"
             type="text"
+            v-model="question1"
             name="question1"
           />
         </div>
@@ -48,6 +52,7 @@
             class="form-input"
             type="text"
             name="question2"
+            v-model="question2"
           />
         </div>
         <button type="submit" class="" id="register_button">Register</button>
@@ -56,10 +61,11 @@
   </div>
 </template>
 
-<script>
+<!-- <script>
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 import { useStore } from "vuex";
+import axios from 'axios';
 
 export default {
   name: "RegisterUser",
@@ -90,8 +96,62 @@ export default {
     };
     return { register, name, email, password, question1, question2, error };
   },
+  methods : {
+    getTestResponse(){
+      const path = 'http://127.0.0.1:5000/register'
+      axios.get(path)
+    .then(response => {
+      console.log(response.data);
+      this.msg = response.data;
+    })
+    .catch(err => {
+      console.log(err);
+    });
+    },
+  },
+  created() {
+    this.getTestResponse()
+  }
 };
+</script> -->
+
+<script>
+
+  import axios from 'axios';
+  export default {
+    name: 'RegisterUser',
+    data(){
+      return {
+        name:'',
+        email:'',
+        password:'',
+        question1:'',
+        question2:''
+
+      }
+    },
+    methods: {
+      handleSubmit(){
+        const data = {
+          name : this.name,
+          email : this.email,
+          password : this.password,
+          question1 : this.question1,
+          question2 : this.question2 
+        };
+        axios.post('http://127.0.0.1:5000/register',data)
+        .then(res => {
+          console.log(res)
+        }).catch(err => {
+          console.log(err)
+        })
+      }
+    }
+  }
+
+
 </script>
+
 
 <style>
 .register-view {
