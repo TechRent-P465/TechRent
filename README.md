@@ -4,9 +4,9 @@ Rental Services Application in which people in can rent out electronic devices t
 # Running the Frontend
 
 ## npm
-``
+```
 cd .\frontend\TechRent\
 npm i
 npm run dev
 click link to open in browser
-``
+```
