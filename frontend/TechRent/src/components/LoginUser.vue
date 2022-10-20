@@ -77,8 +77,8 @@ export default {
     routeToDashboard() {
       this.$router.push('/')
     },
-    routeToLogin() {
-      this.$router.push('/login')
+    routeToRegister() {
+      this.$router.push('/register')
     }
   },
   created() {
