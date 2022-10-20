@@ -46,42 +46,45 @@
 </template>
 
 <script>
-import { useRouter } from "vue-router";
-import { ref } from "vue";
-import { useStore } from "vuex";
-import axios from "axios";
+import { useRouter } from 'vue-router'
+import { ref } from 'vue'
+import { useStore } from 'vuex'
+import axios from 'axios'
 
 export default {
-  name: "LoginUser",
+  name: 'LoginUser',
   data() {
     return {
-      msg: "",
-    };
+      msg: ''
+    }
   },
   methods: {
     getresponse() {
-      const path = "http://localhost:5000/LoginUser";
+      const path = 'http://localhost:5000/LoginUser'
       axios
         .get(path)
         .then((res) => {
-          console.log(res.data);
-          this.msg = res.data;
+          console.log(res.data)
+          this.msg = res.data
         })
         .catch((err) => {
-          console.error(err);
-        });
+          console.error(err)
+        })
     },
     routeToForgotPassword() {
-      this.$router.push("/forgotpassword");
+      this.$router.push('/forgotpassword')
     },
     routeToDashboard() {
-      this.$router.push("/");
+      this.$router.push('/')
     },
+    routeToLogin() {
+      this.$router.push('/login')
+    }
   },
   created() {
-    this.getresponse();
-  },
-};
+    this.getresponse()
+  }
+}
 </script>
 <style scoped>
 .login-view {
@@ -123,7 +126,7 @@ hr {
   position: fixed;
   top: 5px;
   right: 20px;
-  content: "\00d7";
+  content: '\00d7';
   font-size: 30px;
 }
 
