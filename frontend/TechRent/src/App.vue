@@ -12,13 +12,18 @@
     <router-view id="content" />
   </div>
   <footer>
-    <h1>Footer</h1>
+    <h1>Contact</h1>
+    <ul>
+      <li>email: TechRent@gmail.com</li>
+      <li>317-123-1234</li>
+    </ul>
+    <h2>GitHub: <a href="https://github.com/cam-line/TechRent">TechRent</a></h2>
   </footer>
 </template>
 
 <script>
 //import { RouterLink, RouterView } from "vue-router";
-import LogoLink from "@/components/LogoLink.vue"
+import LogoLink from '@/components/LogoLink.vue'
 
 export default {
   components: {
@@ -28,7 +33,7 @@ export default {
 </script>
 
 <style scoped>
-@import "./assets/normalize.css";
+@import './assets/normalize.css';
 .content-wrapper {
   min-height: 100%;
 }

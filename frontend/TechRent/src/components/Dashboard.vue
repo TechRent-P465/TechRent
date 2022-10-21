@@ -16,7 +16,7 @@
           class="search-bar"
           type="text"
           v-model="search"
-          placeholder="Search For Items"
+          placeholder="Search For Electronic Devices"
         />
         <button type="submit" class="search-button">
           <img src="../assets/search.png" class="my-icon" />
@@ -24,43 +24,27 @@
       </form>
     </div>
 
+    <div v-if="search" class="devices-container">
+      <div class="devices-header">
+        <h2>Searched Items</h2>
+      </div>
+      <div class="devices-content">
+        <div v-for="device in filteredDevices" class="devices-item-container">
+          <Recommendation :ItemImage="device.image" :ItemName="device.name" />
+        </div>
+      </div>
+    </div>
+
     <div class="recommendations-container">
       <div class="recommendations-header">
         <h2>Recommended Items</h2>
       </div>
       <div class="recommendations-content">
-        <div class="recommendations-item-container">
-          <Recommendation ItemName="Default Laptop" />
-        </div>
-        <div class="recommendations-item-container">
-          <Recommendation
-            ItemImage="@assets/defaultPicRec.png"
-            ItemName="Default Laptop"
-          />
-        </div>
-        <div class="recommendations-item-container">
-          <Recommendation
-            ItemImage="../assets/defaultPicRec.png"
-            ItemName="Default Laptop"
-          />
-        </div>
-        <div class="recommendations-item-container">
-          <Recommendation
-            ItemImage="../assets/defaultPicRec.png"
-            ItemName="Default Laptop"
-          />
-        </div>
-        <div class="recommendations-item-container">
-          <Recommendation
-            ItemImage="../assets/defaultPicRec.png"
-            ItemName="Default Laptop"
-          />
-        </div>
-        <div class="recommendations-item-container">
-          <Recommendation
-            ItemImage="../assets/defaultPicRec.png"
-            ItemName="Default Laptop"
-          />
+        <div
+          v-for="device in recommendedDevices"
+          class="recommendations-item-container"
+        >
+          <Recommendation :ItemImage="device.image" :ItemName="device.name" />
         </div>
       </div>
     </div>
@@ -74,7 +58,92 @@ export default {
   components: { Recommendation },
   data() {
     return {
+      devices: [
+        {
+          image: '@assets/defaultPicRec.png',
+          name: 'Device Name'
+        },
+        {
+          image: '@assets/defaultPicRec.png',
+          name: 'Device 2 Name'
+        },
+        {
+          image: '@assets/defaultPicRec.png',
+          name: 'Device 3 Name'
+        },
+        {
+          image: '@assets/defaultPicRec.png',
+          name: 'Device 4 Name'
+        },
+        {
+          image: '@assets/defaultPicRec.png',
+          name: 'Device 5 Name'
+        },
+        {
+          image: '@assets/defaultPicRec.png',
+          name: 'Device 6 Name'
+        },
+        {
+          image: '@assets/defaultPicRec.png',
+          name: 'Device 7 Name'
+        },
+        {
+          image: '@assets/defaultPicRec.png',
+          name: 'Device 8 Name'
+        },
+        {
+          image: '@assets/defaultPicRec.png',
+          name: 'Device 9 Name'
+        },
+        {
+          image: '@assets/defaultPicRec.png',
+          name: 'Device 10 Name'
+        }
+      ],
+      recommendedDevices: [
+        {
+          image: '@assets/defaultPicRec.png',
+          name: 'Device Name'
+        },
+        {
+          image: '@assets/defaultPicRec.png',
+          name: 'Device 2 Name'
+        },
+        {
+          image: '@assets/defaultPicRec.png',
+          name: 'Device 3 Name'
+        },
+        {
+          image: '@assets/defaultPicRec.png',
+          name: 'Device 4 Name'
+        },
+        {
+          image: '@assets/defaultPicRec.png',
+          name: 'Device 5 Name'
+        },
+        {
+          image: '@assets/defaultPicRec.png',
+          name: 'Device 6 Name'
+        }
+      ],
       search: ''
+    }
+  },
+  methods() {},
+  created() {
+    // get request
+    /*
+    .then(function(data){
+      this.recommendedDevices = data.body.slice(0,10);
+      this.devices = data.body
+    })
+    */
+  },
+  computed: {
+    filteredDevices: function () {
+      return this.devices.filter((device) => {
+        return device.name.match(this.search)
+      })
     }
   }
 }
@@ -107,7 +176,29 @@ export default {
     margin-bottom: 3em;
   }
 
-  /* recomendations container */
+  /* Devices container */
+  .devices-container {
+    width: 80%;
+    border: 1px solid var(--color-primary);
+    padding: 4rem 4rem;
+    margin: 30px auto;
+    border-radius: 5px;
+    background-color: var(--color-highlight);
+  }
+
+  .devices-item-container {
+    /* position: relative; */
+    margin: 0 15px 30px 0;
+  }
+
+  .devices-content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-flow: row wrap;
+  }
+
+  /* Recomendations container */
   .recommendations-container {
     width: 80%;
     border: 1px solid var(--color-primary);

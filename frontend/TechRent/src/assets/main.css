@@ -1,4 +1,4 @@
-@import "./base.css";
+@import './base.css';
 
 #app {
   margin: 0 auto;
@@ -50,6 +50,11 @@ footer {
   left: 0;
   bottom: 0;
   width: 100%;
+}
+
+footer h1,
+ul {
+  color: var(--color-highlight);
 }
 
 @media (hover: hover) {

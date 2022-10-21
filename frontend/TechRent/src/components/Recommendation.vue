@@ -34,8 +34,12 @@ defineProps({
 }
 
 .recommendations-card:hover {
-  color: var(--color-highlight);
-  background-color: var(--color-pop);
+  color: var(--color-tertiary);
+  background-color: var(--color-highlight);
+  box-shadow: inset 0 0 0 2000px rgba(62, 124, 177, 0.2);
+  width: 195px;
+  height: 195px;
+  margin-right: 5px;
 }
 
 a {
