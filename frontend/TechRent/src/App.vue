@@ -5,6 +5,7 @@
       <nav>
         <router-link to="/">Home</router-link>
         <router-link to="/login">Login</router-link>
+        <router-link to="/browse">Browse</router-link>
       </nav>
     </div>
   </header>
@@ -24,10 +25,12 @@
 <script>
 //import { RouterLink, RouterView } from "vue-router";
 import LogoLink from '@/components/LogoLink.vue'
+import BrowseItems from '@/Views/BrowseItems.vue'
 
 export default {
   components: {
-    LogoLink
+    LogoLink,
+    BrowseItems
   }
 }
 </script>
@@ -67,31 +70,35 @@ nav a:first-of-type {
   border: 0;
 }
 
+header .wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+header {
+  position: fixed;
+  z-index: 9999999;
+  width: 100%;
+  background: var(--color-secondary);
+  border-bottom: 5px solid var(--color-pop);
+  -webkit-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+  -moz-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+  box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+  padding: 20px 50px;
+}
+
+nav {
+  text-align: center;
+  margin-left: -1rem;
+  font-size: 1rem;
+  padding: 1rem 0;
+  margin-top: 1rem;
+}
+
 @media (min-width: 1024px) {
   header .wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  header {
-    position: fixed;
-    z-index: 9999999;
-    width: 100%;
-    height: 108px;
-    background: var(--color-secondary);
-    border-bottom: 5px solid var(--color-pop);
-    -webkit-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
-    -moz-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
-    box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
-    padding: 20px 50px;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-    padding: 1rem 0;
-    margin-top: 1rem;
+    flex-direction: row;
   }
 }
 </style>
