@@ -97,7 +97,6 @@ export default {
         .post('http://127.0.0.1:5000/register', data)
         .then((res) => {
           console.log(res)
-          this.$router.push('/')
         })
         .catch((err) => {
           console.log(err)
