@@ -60,7 +60,7 @@ export default {
     return {
       devices: [
         {
-          image: '@assets/defaultPicRec.png',
+          image: '@/assets/defaultPicRec.png',
           name: 'Device Name'
         },
         {
@@ -102,27 +102,27 @@ export default {
       ],
       recommendedDevices: [
         {
-          image: '@assets/defaultPicRec.png',
+          image: '@/assets/defaultPicRec.png',
           name: 'Device Name'
         },
         {
-          image: '@assets/defaultPicRec.png',
+          image: '@/assets/defaultPicRec.png',
           name: 'Device 2 Name'
         },
         {
-          image: '@assets/defaultPicRec.png',
+          image: '@/assets/defaultPicRec.png',
           name: 'Device 3 Name'
         },
         {
-          image: '@assets/defaultPicRec.png',
+          image: '@/assets/defaultPicRec.png',
           name: 'Device 4 Name'
         },
         {
-          image: '@assets/defaultPicRec.png',
+          image: '@/assets/defaultPicRec.png',
           name: 'Device 5 Name'
         },
         {
-          image: '@assets/defaultPicRec.png',
+          image: '@/assets/defaultPicRec.png',
           name: 'Device 6 Name'
         }
       ],
@@ -157,115 +157,112 @@ export default {
   background-position: center center;
 }
 
+.image-banner h1 {
+  color: var(--color-highlight);
+  font-size: 40px;
+}
+.image-banner h2 {
+  color: var(--color-highlight);
+}
+
+.banner-section1 {
+  width: 100%;
+  margin-bottom: 3em;
+}
+
+/* Devices container */
+.devices-container {
+  width: 80%;
+  border: 1px solid var(--color-primary);
+  padding: 4rem 4rem;
+  margin: 30px auto;
+  border-radius: 5px;
+  background-color: var(--color-highlight);
+}
+
+.devices-item-container {
+  /* position: relative; */
+  margin: 0 15px 30px 0;
+}
+
+.devices-content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-flow: row wrap;
+}
+
+/* Recomendations container */
+.recommendations-container {
+  width: 80%;
+  border: 1px solid var(--color-primary);
+  padding: 4rem 4rem;
+  margin: 30px auto;
+  border-radius: 5px;
+  background: var(--color-highlight);
+}
+
+.recommendations-item-container {
+  /* position: relative; */
+  margin: 0 15px 30px 0;
+}
+
+.recommendations-content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-flow: row wrap;
+}
+
+.recommendations-header {
+  text-align: left;
+}
+
+/* Search */
+.search-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.search-content {
+  background-color: var(--color-highlight);
+  box-shadow: inset 0 0 0 2000px rgba(62, 124, 177, 0.2);
+  width: 80%;
+  margin: 30px auto;
+  height: 50px;
+  border: 1px solid var(--color-pop);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 60px;
+}
+.my-icon {
+  width: 30px;
+  height: 30px;
+}
+.search-bar {
+  background: transparent;
+  outline: none;
+  font-size: 20px;
+  all: unset;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+.search-button {
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  background: transparent;
+  margin-right: 10px;
+}
+
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
   .image-banner {
     background-position: bottom;
-  }
-
-  .image-banner h1 {
-    color: var(--color-highlight);
-    font-size: 40px;
-  }
-  .image-banner h2 {
-    color: var(--color-highlight);
-  }
-
-  .banner-section1 {
-    width: 100%;
-    margin-bottom: 3em;
-  }
-
-  /* Devices container */
-  .devices-container {
-    width: 80%;
-    border: 1px solid var(--color-primary);
-    padding: 4rem 4rem;
-    margin: 30px auto;
-    border-radius: 5px;
-    background-color: var(--color-highlight);
-  }
-
-  .devices-item-container {
-    /* position: relative; */
-    margin: 0 15px 30px 0;
-  }
-
-  .devices-content {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    flex-flow: row wrap;
-  }
-
-  /* Recomendations container */
-  .recommendations-container {
-    width: 80%;
-    border: 1px solid var(--color-primary);
-    padding: 4rem 4rem;
-    margin: 30px auto;
-    border-radius: 5px;
-    background: var(--color-highlight);
-  }
-
-  .recommendations-item-container {
-    /* position: relative; */
-    margin: 0 15px 30px 0;
-  }
-
-  .recommendations-content {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    flex-flow: row wrap;
-  }
-
-  .recommendations-header {
-    text-align: left;
-  }
-  .search-container {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .search-content {
-    background-color: var(--color-highlight);
-    box-shadow: inset 0 0 0 2000px rgba(62, 124, 177, 0.2);
-    width: 80%;
-    margin: 30px auto;
-    height: 50px;
-    border: 1px solid var(--color-pop);
-    border-radius: 5px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    border-radius: 60px;
-  }
-  .my-icon {
-    width: 30px;
-    height: 30px;
-  }
-  .search-bar {
-    /* width: 80%;
-    margin: 0 auto;
-    height: 50px; */
-    background: transparent;
-    outline: none;
-    font-size: 20px;
-    all: unset;
-    width: 100%;
-    height: 100%;
-    padding: 10px;
-    /* display: flex;
-    align-items: center; */
-  }
-  .search-button {
-    border: 0;
-    border-radius: 50%;
-    cursor: pointer;
-    background: transparent;
-    margin-right: 10px;
   }
 }
 </style>

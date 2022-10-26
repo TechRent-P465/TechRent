@@ -7,18 +7,52 @@ defineProps({
   ItemName: {
     type: String,
     required: true
+  },
+  ItemType: {
+    type: String,
+    required: false
+  },
+  ItemBrand: {
+    type: String,
+    required: false
+  },
+  ItemLocation: {
+    type: String,
+    required: false
+  },
+  ItemPrice: {
+    type: String,
+    required: false
   }
+  
 })
+
+
 </script>
 
 <template lang="">
-  <a class="recommendations-card">
+  <a class="recommendations-card" @click="routeToItem">
     <img :src="ItemImage" alt="item image" id="itemId" />
     <p>{{ ItemName }}</p>
     <nav></nav>
   </a>
 </template>
+<script>
+export default
+{
+  name: 'purchaseItem',
+  data() {
+    return {
 
+    }
+  },
+  methods: {
+    routeToItem() {
+      this.$router.push('/itempage')
+  }
+  }
+}
+</script>
 <style scoped>
 .recommendations-card {
   width: 200px;
@@ -32,7 +66,6 @@ defineProps({
   display: flex;
   flex-direction: column;
 }
-
 .recommendations-card:hover {
   color: var(--color-tertiary);
   background-color: var(--color-highlight);
@@ -41,7 +74,6 @@ defineProps({
   height: 195px;
   margin-right: 5px;
 }
-
 a {
   color: var(--color-primary);
 }
