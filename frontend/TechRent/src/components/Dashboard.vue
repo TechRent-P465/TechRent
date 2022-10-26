@@ -30,7 +30,7 @@
       </div>
       <div class="devices-content">
         <div v-for="device in filteredDevices" class="devices-item-container">
-          <Recommendation :ItemImage="device.image" :ItemName="device.name" />
+          <Recommendation :itemImage="device.image" :itemName="device.name" />
         </div>
       </div>
     </div>
@@ -44,7 +44,7 @@
           v-for="device in recommendedDevices"
           class="recommendations-item-container"
         >
-          <Recommendation :ItemImage="device.image" :ItemName="device.name" />
+          <Recommendation :item-image="device.image" :item-name="device.name" />
         </div>
       </div>
     </div>

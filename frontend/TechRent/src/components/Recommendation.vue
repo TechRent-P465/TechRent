@@ -1,55 +1,35 @@
-<script setup>
-defineProps({
-  ItemImage: {
-    type: String,
-    default: '../assets/defaultPicRec.png'
-  },
-  ItemName: {
-    type: String,
-    required: true
-  },
-  ItemType: {
-    type: String,
-    required: false
-  },
-  ItemBrand: {
-    type: String,
-    required: false
-  },
-  ItemLocation: {
-    type: String,
-    required: false
-  },
-  ItemPrice: {
-    type: String,
-    required: false
-  }
-  
-})
-
-
-</script>
-
 <template lang="">
   <a class="recommendations-card" @click="routeToItem">
-    <img :src="ItemImage" alt="item image" id="itemId" />
-    <p>{{ ItemName }}</p>
+    <div id="image"></div>
+    <img :src="itemImage" alt="item image" id="itemId" />
+    <h3>{{ itemName }}</h3>
     <nav></nav>
   </a>
 </template>
 <script>
-export default
-{
+export default {
   name: 'purchaseItem',
   data() {
-    return {
-
-    }
+    return {}
   },
   methods: {
     routeToItem() {
       this.$router.push('/itempage')
-  }
+    }
+  },
+  props: {
+    itemImage: {
+      type: String,
+      default: '../assets/defaultPicRec.png'
+    },
+    itemName: {
+      type: String,
+      required: true
+    },
+    itemType: String,
+    itemBrand: String,
+    itemLocation: String,
+    itemPrice: String
   }
 }
 </script>
@@ -74,6 +54,7 @@ export default
   height: 195px;
   margin-right: 5px;
 }
+
 a {
   color: var(--color-primary);
 }
