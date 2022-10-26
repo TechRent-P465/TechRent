@@ -27,8 +27,7 @@ class Users(db.Model):
     question2 = db.Column(db.String(256), nullable = False)
 
 
-    def __init__(self, uid, name, email, password, question1, question2):
-        self.uid = uid
+    def __init__(self, name, email, password, question1, question2):
         self.name = name
         self.email = email
         self.password = password
