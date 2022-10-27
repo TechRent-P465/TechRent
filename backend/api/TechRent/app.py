@@ -13,8 +13,8 @@ from sqlalchemy import func, create_engine
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Techrent.sqlite3'
-app.config['SECRET_KEY'] = "randostring"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.sqlite3'
+app.config['SECRET_KEY'] = "test"
 db = SQLAlchemy(app)
 
 
@@ -73,15 +73,27 @@ def test():
 
 @app.route("/register", methods = ['GET','POST'])
 def register():
-    name = request.form['name']
-    email = request.form['email']
-    password = request.form['password']
-    question1 = request.form['question1']
-    question2 = request.form['question2']
+    data = request.json
+    print(data)
+    name = data['name']
+    email = data['email']
+    password = data['password']
+    question1 = data['question1']
+    question2 = data['question2']
     user = Users(name = name, email = email, password = password, question1=question1, question2=question2 )
     db.session.add(user)
     db.session.commit()
     app.logger.info(user.uid)
+
+    # name = request.form['name']
+    # email = request.form['email']
+    # password = request.form['password']
+    # question1 = request.form['question1']
+    # question2 = request.form['question2']
+    # user = Users(name = name, email = email, password = password, question1=question1, question2=question2 )
+    # db.session.add(user)
+    # db.session.commit()
+    # app.logger.info(user.uid)
     return jsonify("User successfully registered")
 
     

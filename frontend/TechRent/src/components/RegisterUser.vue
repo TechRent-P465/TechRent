@@ -56,6 +56,11 @@
             v-model="question2"
           />
         </div>
+        <div class="test">
+          <h1>
+            {{ msg }}
+          </h1>
+        </div>
         <button type="submit" class="" id="register_button">Register</button>
       </form>
     </div>
@@ -76,15 +81,15 @@ export default {
     }
   },
   methods: {
-    routeToRegister() {
-      this.$router.push('/register')
-    },
-    routeToForgotPassword() {
-      this.$router.push('/forgotpassword')
-    },
-    routeToDashboard() {
-      this.$router.push('/')
-    },
+    // routeToRegister() {
+    //   this.$router.push('/register')
+    // },
+    // routeToForgotPassword() {
+    //   this.$router.push('/forgotpassword')
+    // },
+    // routeToDashboard() {
+    //   this.$router.push('/')
+    // },
     handleSubmit() {
       const data = {
         name: this.name,
