@@ -30,7 +30,7 @@
       </div>
       <div class="devices-content">
         <div v-for="device in filteredDevices" class="devices-item-container">
-          <Recommendation :ItemImage="device.image" :ItemName="device.name" />
+          <Recommendation :itemImage="device.image" :itemName="device.name" />
         </div>
       </div>
     </div>
@@ -44,7 +44,7 @@
           v-for="device in recommendedDevices"
           class="recommendations-item-container"
         >
-          <Recommendation :ItemImage="device.image" :ItemName="device.name" />
+          <Recommendation :item-image="device.image" :item-name="device.name" />
         </div>
       </div>
     </div>
@@ -60,7 +60,7 @@ export default {
     return {
       devices: [
         {
-          image: '@assets/defaultPicRec.png',
+          image: '@/assets/defaultPicRec.png',
           name: 'Device Name'
         },
         {
@@ -102,27 +102,27 @@ export default {
       ],
       recommendedDevices: [
         {
-          image: '@assets/defaultPicRec.png',
+          image: '@/assets/defaultPicRec.png',
           name: 'Device Name'
         },
         {
-          image: '@assets/defaultPicRec.png',
+          image: '@/assets/defaultPicRec.png',
           name: 'Device 2 Name'
         },
         {
-          image: '@assets/defaultPicRec.png',
+          image: '@/assets/defaultPicRec.png',
           name: 'Device 3 Name'
         },
         {
-          image: '@assets/defaultPicRec.png',
+          image: '@/assets/defaultPicRec.png',
           name: 'Device 4 Name'
         },
         {
-          image: '@assets/defaultPicRec.png',
+          image: '@/assets/defaultPicRec.png',
           name: 'Device 5 Name'
         },
         {
-          image: '@assets/defaultPicRec.png',
+          image: '@/assets/defaultPicRec.png',
           name: 'Device 6 Name'
         }
       ],

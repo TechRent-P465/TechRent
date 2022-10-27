@@ -1,24 +1,38 @@
-<script setup>
-defineProps({
-  ItemImage: {
-    type: String,
-    default: '../assets/defaultPicRec.png'
-  },
-  ItemName: {
-    type: String,
-    required: true
-  }
-})
-</script>
-
 <template lang="">
-  <a class="recommendations-card">
-    <img :src="ItemImage" alt="item image" id="itemId" />
-    <p>{{ ItemName }}</p>
+  <a class="recommendations-card" @click="routeToItem">
+    <div id="image"></div>
+    <img :src="itemImage" alt="item image" id="itemId" />
+    <h3>{{ itemName }}</h3>
     <nav></nav>
   </a>
 </template>
-
+<script>
+export default {
+  name: 'purchaseItem',
+  data() {
+    return {}
+  },
+  methods: {
+    routeToItem() {
+      this.$router.push('/itempage')
+    }
+  },
+  props: {
+    itemImage: {
+      type: String,
+      default: '../assets/defaultPicRec.png'
+    },
+    itemName: {
+      type: String,
+      required: true
+    },
+    itemType: String,
+    itemBrand: String,
+    itemLocation: String,
+    itemPrice: String
+  }
+}
+</script>
 <style scoped>
 .recommendations-card {
   width: 200px;
@@ -32,7 +46,6 @@ defineProps({
   display: flex;
   flex-direction: column;
 }
-
 .recommendations-card:hover {
   color: var(--color-tertiary);
   background-color: var(--color-highlight);
