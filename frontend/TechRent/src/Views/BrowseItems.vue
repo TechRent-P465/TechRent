@@ -312,7 +312,6 @@ export default {
 }
 
 .devices-item-container {
-  /* position: relative; */
   margin: 0 15px 30px 0;
 }
 
