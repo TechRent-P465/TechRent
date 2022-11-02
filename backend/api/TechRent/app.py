@@ -1,10 +1,5 @@
 from ast import JoinedStr
-##from crypt import methods
-import email
-# from imp import init_builtin
-import json
 from logging.handlers import RotatingFileHandler
-import re
 from flask import Flask, jsonify, request, session, current_app, Blueprint
 from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
@@ -19,10 +14,9 @@ import jwt
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.sqlite3'
-app.config['SECRET_KEY'] = "test"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///TechRent.sqlite3'
+app.config['SECRET_KEY'] = "randostring"
 db = SQLAlchemy(app)
-
 
 class Users(db.Model):
     __tablename__ = 'users'
