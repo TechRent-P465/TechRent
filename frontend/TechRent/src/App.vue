@@ -4,8 +4,10 @@
       <LogoLink msg="<TechRent>" />
       <nav>
         <router-link to="/">Home</router-link>
-        <router-link to="/login">Login</router-link>
+        <router-link v-if="!isAuthenticated" to="/login">Login</router-link>
+        <router-link v-if="isAuthenticated" to="/logout">Log Out</router-link>
         <router-link to="/browse">Browse</router-link>
+        <router-link v-if="isAuthenticated" to="/post">Post Item</router-link>
       </nav>
     </div>
   </header>
@@ -31,6 +33,11 @@ export default {
   components: {
     LogoLink,
     BrowseItems
+  },
+  computed: {
+    isAuthenticated() {
+      return this.$store.getters.isAuthenticated
+    }
   }
 }
 </script>
