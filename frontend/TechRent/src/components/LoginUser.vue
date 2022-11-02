@@ -1,7 +1,7 @@
 <template lang="">
   <div class="login-view">
     <div class="close" @click="routeToDashboard"></div>
-    <form @submit.prevent="submit">
+    <form @submit.prevent="login">
       <h1 class="">Login</h1>
       <div class="input">
         <label for="email">Email address</label>
@@ -10,6 +10,7 @@
           type="text"
           name="email"
           placeholder="email@adress.com"
+          v-model="email"
         />
       </div>
       <div class="input">
@@ -19,6 +20,7 @@
           type="password"
           name="password"
           placeholder="password"
+          v-model="password"
         />
       </div>
       <div class="login-question">
@@ -30,9 +32,7 @@
         Don't have an account?
         <a class="register-account" @click="routeToRegister"> Register </a>
       </div>
-      <button type="submit" class="" id="login_button" @click="routeToLogin">
-        Login
-      </button>
+      <button type="submit" class="" id="login_button">Login</button>
     </form>
     <div class="or">
       <h4>OR</h4>
@@ -55,21 +55,33 @@ export default {
   name: 'LoginUser',
   data() {
     return {
-      msg: ''
+      email: '',
+      password: ''
     }
   },
   methods: {
-    getresponse() {
-      const path = 'http://localhost:5000/LoginUser'
-      axios
-        .get(path)
-        .then((res) => {
-          console.log(res.data)
-          this.msg = res.data
-        })
-        .catch((err) => {
-          console.error(err)
-        })
+    // getresponse() {
+    //   const path = 'http://localhost:5000/LoginUser'
+    //   axios
+    //     .get(path)
+    //     .then((res) => {
+    //       console.log(res.data)
+    //       this.msg = res.data
+    //     })
+    //     .catch((err) => {
+    //       console.error(err)
+    //     })
+    // },
+    login() {
+      const data = {
+        email: this.email,
+        password: this.password
+      }
+
+      this.$store
+        .dispatch('login', data)
+        .then(() => this.$router.push('/'))
+        .catch((error) => console.log(error))
     },
     routeToForgotPassword() {
       this.$router.push('/forgotpassword')
@@ -80,10 +92,10 @@ export default {
     routeToRegister() {
       this.$router.push('/register')
     }
-  },
-  created() {
-    this.getresponse()
   }
+  // created() {
+  //   this.getresponse()
+  // }
 }
 </script>
 <style scoped>
