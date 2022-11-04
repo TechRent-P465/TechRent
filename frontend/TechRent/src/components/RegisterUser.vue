@@ -2,7 +2,7 @@
   <div class="container">
     <div class="register-view">
       <div class="close" @click="routeToDashboard"></div>
-      <form @submit.prevent="handleSubmit">
+      <form @submit.prevent="register">
         <h1 class="">Register</h1>
         <div class="input">
           <label for="name">Name</label>
@@ -56,6 +56,11 @@
             v-model="question2"
           />
         </div>
+        <div class="test">
+          <h1>
+            {{ msg }}
+          </h1>
+        </div>
         <button type="submit" class="" id="register_button">Register</button>
       </form>
     </div>
@@ -63,7 +68,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   name: 'RegisterUser',
   data() {
@@ -76,16 +80,7 @@ export default {
     }
   },
   methods: {
-    routeToRegister() {
-      this.$router.push('/register')
-    },
-    routeToForgotPassword() {
-      this.$router.push('/forgotpassword')
-    },
-    routeToDashboard() {
-      this.$router.push('/')
-    },
-    handleSubmit() {
+    register() {
       const data = {
         name: this.name,
         email: this.email,
@@ -93,15 +88,17 @@ export default {
         question1: this.question1,
         question2: this.question2
       }
-      axios
-        .post('http://127.0.0.1:5000/register', data)
-        .then((res) => {
-          console.log(res)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+
+      this.$store.dispatch('register', data).then(() => this.$router.push('/'))
     }
+    // axios
+    //   .post('http://127.0.0.1:5000/register', data)
+    //   .then((res) => {
+    //     console.log(res)
+    //   })
+    //   .catch((err) => {
+    //     console.log(err)
+    //   })
   }
 }
 </script>

@@ -5,6 +5,8 @@ import ForgotPassword from '../components/ForgotPassword.vue'
 import Dashboard from '../components/Dashboard.vue'
 import BrowseItems from '../Views/BrowseItems.vue'
 import ItemPage from '../components/ItemPage.vue'
+import PostItem from '@/Views/PostItem.vue'
+import LogOut from '@/components/LogOut.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +40,16 @@ const router = createRouter({
       path: '/itempage',
       name: 'ItemPage',
       component: ItemPage
+    },
+    {
+      path: '/post',
+      name: 'PostItem',
+      component: PostItem
+    },
+    {
+      path: '/logout',
+      name: 'LogOut',
+      component: LogOut
     }
   ]
 })
