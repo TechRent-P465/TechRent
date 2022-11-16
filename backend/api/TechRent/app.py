@@ -4,6 +4,7 @@ from flask import Flask, jsonify, request, session, current_app, Blueprint
 from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import desc, func, create_engine
+from datetime import datetime
 ## for JWT
 from functools import wraps
 from datetime import datetime, timedelta
@@ -14,7 +15,7 @@ import jwt
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///TechRent.sqlite3'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Test.sqlite3'
 app.config['SECRET_KEY'] = "randostring"
 db = SQLAlchemy(app)
 
@@ -109,7 +110,7 @@ def token_required(f):
 
         try:
             token = auth_headers[1]
-            data = jwt.decode(token, current_app.config['SECRET_KEY'])
+            data = jwt.decode(token, current_app.config['SECRET_KEY'], algorithms=['HS256'])
             user = Users.query.filter_by(email=data['sub']).first()
             if not user:
                 raise RuntimeError('User not found')
@@ -171,17 +172,17 @@ def login():
 @token_required
 def create_item(current_user):
     data = request.get_json()
-    name = data['item_name']
+    item_name = data['item_name']
     brand = data['brand']
     price = data['price']
     location = data['location']
     seller_id = current_user
     image_url = data['image_url']
-    posted_at = data['posted_at']
+    posted_at = datetime.now()
     description = data['description']
     seller_email = data['email']
     seller_phone = data['phone']
-    item = Items(name=name, brand=brand, price=price, location=location, seller_id=seller_id, image_url=image_url, posted_at=posted_at, description=description, seller_email=seller_email, seller_phone=seller_phone)
+    item = Items(item_name=item_name, brand=brand, price=price, location=location, seller_id=seller_id, image_url=image_url, posted_at=posted_at, description=description, seller_email=seller_email, seller_phone=seller_phone)
     db.session.add(item)
     db.session.commit()
     app.logger.info(item.id)
