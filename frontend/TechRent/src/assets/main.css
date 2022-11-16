@@ -42,14 +42,15 @@ button {
 }
 
 footer {
-  margin-top: 150px;
-  padding: 50px 15%;
+  padding: 20px 15%;
   background-color: var(--color-tertiary);
-  height: auto;
   position: relative;
   left: 0;
   bottom: 0;
   width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 footer h1,

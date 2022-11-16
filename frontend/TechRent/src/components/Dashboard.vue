@@ -120,10 +120,6 @@ export default {
         {
           image: '@/assets/defaultPicRec.png',
           name: 'Device 5 Name'
-        },
-        {
-          image: '@/assets/defaultPicRec.png',
-          name: 'Device 6 Name'
         }
       ],
       search: ''

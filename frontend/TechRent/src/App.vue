@@ -1,26 +1,30 @@
 <template>
   <header>
-    <div class="wrapper">
-      <LogoLink msg="<TechRent>" />
-      <nav>
-        <router-link to="/">Home</router-link>
-        <router-link v-if="!isAuthenticated" to="/login">Login</router-link>
-        <router-link v-if="isAuthenticated" to="/logout">Log Out</router-link>
-        <router-link to="/browse">Browse</router-link>
-        <router-link v-if="isAuthenticated" to="/post">Post Item</router-link>
-      </nav>
-    </div>
+    <LogoLink msg="<TechRent>" />
+    <nav>
+      <router-link to="/">Home</router-link>
+      <router-link v-if="!isAuthenticated" to="/login">Login</router-link>
+      <router-link v-if="isAuthenticated" to="/logout">Log Out</router-link>
+      <router-link to="/browse">Browse</router-link>
+      <router-link v-if="isAuthenticated" to="/post">Post Item</router-link>
+    </nav>
   </header>
   <div class="content-wrapper">
     <router-view id="content" />
   </div>
   <footer>
-    <h1>Contact</h1>
-    <ul>
-      <li>email: TechRent@gmail.com</li>
-      <li>317-123-1234</li>
-    </ul>
-    <h2>GitHub: <a href="https://github.com/cam-line/TechRent">TechRent</a></h2>
+    <div>
+      <h2>Contact</h2>
+      <ul>
+        <li>email: TechRent@gmail.com</li>
+        <li>317-123-1234</li>
+      </ul>
+    </div>
+    <div>
+      <h2>
+        GitHub: <a href="https://github.com/cam-line/TechRent">TechRent</a>
+      </h2>
+    </div>
   </footer>
 </template>
 
@@ -77,14 +81,13 @@ nav a:first-of-type {
   border: 0;
 }
 
-header .wrapper {
+header {
+  position: sticky;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
-}
-header {
-  position: fixed;
+  height: 20vh;
   z-index: 9999999;
   width: 100%;
   background: var(--color-secondary);
@@ -104,7 +107,7 @@ nav {
 }
 
 @media (min-width: 1024px) {
-  header .wrapper {
+  header {
     flex-direction: row;
   }
 }

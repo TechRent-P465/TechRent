@@ -3,7 +3,7 @@ from logging.handlers import RotatingFileHandler
 from flask import Flask, jsonify, request, session, current_app, Blueprint
 from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import func, create_engine
+from sqlalchemy import desc, func, create_engine
 ## for JWT
 from functools import wraps
 from datetime import datetime, timedelta
@@ -70,6 +70,9 @@ class Items(db.Model):
     seller_id = db.Column(db.Integer, db.ForeignKey('users.uid'))
     image_url = db.Column(db.Text, nullable = False)
     posted_at = db.Column(db.DateTime, default=datetime.utcnow)
+    description = db.Column(db.Text, nullable = False)
+    seller_email = db.Column(db.Text, nullable=True)
+    seller_phone = db.Column(db.Text, nullable=True)
 
     def to_dict(self):
       return dict(id=self.id,
@@ -80,7 +83,11 @@ class Items(db.Model):
                   price=self.price,
                   rating=self.rating,
                   brand=self.brand,
-                  image_url=self.image_url)
+                  image_url=self.image_url,
+                  description=self.description,
+                  seller_email=self.seller_email,
+                  seller_phone=self.seller_phone
+                  )
 
 ## decorator
 def token_required(f):
@@ -108,9 +115,11 @@ def token_required(f):
                 raise RuntimeError('User not found')
             return f(user, *args, **kwargs)
         except jwt.ExpiredSignatureError:
+            print("Token Expired")
             return jsonify(expired_msg), 401 
         except (jwt.InvalidTokenError, Exception) as e:
             print(e)
+            print("Invalid Token")
             return jsonify(invalid_msg), 401
 
     return _verify
@@ -163,14 +172,16 @@ def login():
 def create_item(current_user):
     data = request.get_json()
     name = data['item_name']
-    rating = data['rating']
     brand = data['brand']
     price = data['price']
     location = data['location']
     seller_id = current_user
     image_url = data['image_url']
     posted_at = data['posted_at']
-    item = Items(name=name, rating=rating, brand=brand, price=price, location=location, seller_id=seller_id, image_url=image_url, posted_at=posted_at)
+    description = data['description']
+    seller_email = data['email']
+    seller_phone = data['phone']
+    item = Items(name=name, brand=brand, price=price, location=location, seller_id=seller_id, image_url=image_url, posted_at=posted_at, description=description, seller_email=seller_email, seller_phone=seller_phone)
     db.session.add(item)
     db.session.commit()
     app.logger.info(item.id)
