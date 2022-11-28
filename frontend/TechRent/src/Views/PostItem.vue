@@ -170,12 +170,12 @@ export default {
           item_name: this.item_name,
           description: this.description,
           brand: this.brand,
+          seller_id: JSON.parse(window.localStorage.userData).uid,
           price: this.price,
           location: this.location,
           image_url: this.image_url,
           email: this.email,
-          phone: this.phone,
-          posted_at: new Date()
+          phone: this.phone
         }
 
         this.$store.dispatch('submitNewItem', data).then(() => {

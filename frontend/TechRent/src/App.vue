@@ -4,9 +4,10 @@
     <nav>
       <router-link to="/">Home</router-link>
       <router-link v-if="!isAuthenticated" to="/login">Login</router-link>
-      <router-link v-if="isAuthenticated" to="/logout">Log Out</router-link>
+      <a v-if="isAuthenticated" @click="confirmLogout">Log Out</a>
       <router-link to="/browse">Browse</router-link>
       <router-link v-if="isAuthenticated" to="/post">Post Item</router-link>
+      <router-link v-if="isAdmin" to="/admin/items">Admin</router-link>
     </nav>
   </header>
   <div class="content-wrapper">
@@ -34,6 +35,10 @@ import LogoLink from '@/components/LogoLink.vue'
 import BrowseItems from '@/Views/BrowseItems.vue'
 
 export default {
+  mounted() {
+    this.$store.dispatch('loadItems')
+    this.$store.dispatch('loadCurrentUser')
+  },
   components: {
     LogoLink,
     BrowseItems
@@ -41,6 +46,24 @@ export default {
   computed: {
     isAuthenticated() {
       return this.$store.getters.isAuthenticated
+    },
+    isAdmin() {
+      console.log(
+        window.localStorage.userData &&
+          JSON.parse(window.localStorage.userData).email == 'admin@test.com'
+      )
+      return (
+        window.localStorage.userData &&
+        JSON.parse(window.localStorage.userData).email == 'admin@test.com'
+      )
+    },
+    confirmLogout(e) {
+      let logout = confirm('Are you sure you want to logout?')
+      if (logout) {
+        this.$store.dispatch('logout')
+      } else {
+        e.preventDefault()
+      }
     }
   }
 }
@@ -63,7 +86,7 @@ nav {
   margin-top: 2rem;
 }
 
-nav a.router-link-exact-active {
+nav a.router-link-active {
   color: var(--color-background);
 }
 

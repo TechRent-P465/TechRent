@@ -55,7 +55,7 @@ class Users(db.Model):
         return user
 
     def to_dict(self):
-        return dict(uid=self.uid, email=self.email)
+        return dict(uid=self.uid, email=self.email, name=self.name)
 
 
 class Items(db.Model):
@@ -166,17 +166,17 @@ def login():
         'iat':datetime.utcnow(),
         'exp': datetime.utcnow() + timedelta(minutes=30)},
         current_app.config['SECRET_KEY'])
-    return jsonify({ 'token': token })
+    return jsonify({ 'token': token, 'user': user.to_dict() })
     
-@app.route('/items', methods=('POST',))
+@app.route('/items/', methods=('POST',))
 @token_required
-def create_item(current_user):
+def create_item():
     data = request.get_json()
     item_name = data['item_name']
     brand = data['brand']
     price = data['price']
     location = data['location']
-    seller_id = current_user
+    seller_id = data['seller_id']
     image_url = data['image_url']
     posted_at = datetime.now()
     description = data['description']
@@ -193,6 +193,17 @@ def create_item(current_user):
 def fetch_items():
     items = Items.query.all()
     return jsonify([i.to_dict() for i in items])
+
+@app.route('/items/<int:item_id>', methods=('DELETE',))
+@token_required
+def delete_item(item_id):
+    item_to_delete = Items.query.get_or_404(item_id)
+    try:
+        db.session.delete(item_to_delete)
+        db.session.commit()
+        return jsonify(item_to_delete.to_dict()), 200
+    except:
+        return "There was an issue deleting the item"
 
 if __name__ == '__main__':
     with app.app_context():
