@@ -1,26 +1,32 @@
 <template>
   <header>
-    <div class="wrapper">
-      <LogoLink msg="<TechRent>" />
-      <nav>
-        <router-link to="/">Home</router-link>
-        <router-link v-if="!isAuthenticated" to="/login">Login</router-link>
-        <router-link v-if="isAuthenticated" to="/logout">Log Out</router-link>
-        <router-link to="/browse">Browse</router-link>
-        <router-link v-if="isAuthenticated" to="/post">Post Item</router-link>
-      </nav>
-    </div>
+    <LogoLink msg="<TechRent>" />
+    <nav>
+      <router-link to="/">Home</router-link>
+      <router-link v-if="!isAuthenticated" to="/login">Login</router-link>
+      <a v-if="isAuthenticated" @click="confirmLogout">Log Out</a>
+      <router-link to="/browse">Browse</router-link>
+      <router-link v-if="isAuthenticated" to="/post">Post Item</router-link>
+      <router-link v-if="isAdmin" to="/admin/items">Admin</router-link>
+      <router-link v-if="isAuthenticated" to="/messages">Messages</router-link>
+    </nav>
   </header>
   <div class="content-wrapper">
     <router-view id="content" />
   </div>
   <footer>
-    <h1>Contact</h1>
-    <ul>
-      <li>email: TechRent@gmail.com</li>
-      <li>317-123-1234</li>
-    </ul>
-    <h2>GitHub: <a href="https://github.com/cam-line/TechRent">TechRent</a></h2>
+    <div>
+      <h2>Contact</h2>
+      <ul>
+        <li>email: TechRent@gmail.com</li>
+        <li>317-123-1234</li>
+      </ul>
+    </div>
+    <div>
+      <h2>
+        GitHub: <a href="https://github.com/cam-line/TechRent">TechRent</a>
+      </h2>
+    </div>
   </footer>
 </template>
 
@@ -30,6 +36,10 @@ import LogoLink from '@/components/LogoLink.vue'
 import BrowseItems from '@/Views/BrowseItems.vue'
 
 export default {
+  mounted() {
+    this.$store.dispatch('loadItems')
+    this.$store.dispatch('loadCurrentUser')
+  },
   components: {
     LogoLink,
     BrowseItems
@@ -37,6 +47,24 @@ export default {
   computed: {
     isAuthenticated() {
       return this.$store.getters.isAuthenticated
+    },
+    isAdmin() {
+      console.log(
+        window.localStorage.userData &&
+          JSON.parse(window.localStorage.userData).email == 'admin@test.com'
+      )
+      return (
+        window.localStorage.userData &&
+        JSON.parse(window.localStorage.userData).email == 'admin@test.com'
+      )
+    },
+    confirmLogout(e) {
+      let logout = confirm('Are you sure you want to logout?')
+      if (logout) {
+        this.$store.dispatch('logout')
+      } else {
+        e.preventDefault()
+      }
     }
   }
 }
@@ -59,7 +87,7 @@ nav {
   margin-top: 2rem;
 }
 
-nav a.router-link-exact-active {
+nav a.router-link-active {
   color: var(--color-background);
 }
 
@@ -77,14 +105,13 @@ nav a:first-of-type {
   border: 0;
 }
 
-header .wrapper {
+header {
+  position: sticky;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
-}
-header {
-  position: fixed;
+  height: 20vh;
   z-index: 9999999;
   width: 100%;
   background: var(--color-secondary);
@@ -104,7 +131,7 @@ nav {
 }
 
 @media (min-width: 1024px) {
-  header .wrapper {
+  header {
     flex-direction: row;
   }
 }

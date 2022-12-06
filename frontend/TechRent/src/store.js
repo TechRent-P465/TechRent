@@ -1,7 +1,14 @@
 import { createStore } from 'vuex'
 
 // imports of AJAX functions will go here
-import { postNewItem, authenticate, register } from '@/api'
+import {
+  postNewItem,
+  submitNewMessage,
+  authenticate,
+  register,
+  getItems,
+  deleteItem
+} from '@/api'
 
 import { isValidJwt } from '@/utils'
 
@@ -10,95 +17,90 @@ const store = createStore({
     // single source of data
     items: [],
     currentItem: {},
+    messages: [],
+    currentMessage: {},
     userData: {},
     jwt: ''
   },
 
   actions: {
     login(context, userData) {
-      context.commit('setUserData', { userData })
+      console.log(userData)
       return authenticate(userData)
         .then((response) => {
-          console.log(response.data)
-          context.commit('setJwtToken', { jwt: response.data })
+          context.commit('SET_JWT_TOKEN', { jwt: response.data.token })
+          context.commit('SET_USER_DATA', response.data.user)
         })
         .catch((error) => {
           console.log('Error Authenticating: ', error)
-          //EventBus.$emit('failedAuthentication', error)
         })
     },
     register(context, userData) {
-      context.commit('setUserData', { userData })
+      //context.commit('SET_USER_DATA', { userData })
       return register(userData)
         .then(context.dispatch('login', userData))
         .catch((error) => {
           console.log('Error Registering: ', error)
-          //EventBus.$emit('failedRegistering: ', error)
         })
     },
     submitNewItem(context, item) {
-      return postNewItem(item, context.state.jwt.token)
+      return postNewItem(item, window.localStorage.token)
+    },
+    submitMessage(context, message) {
+      return submitNewMessage(message, window.localStorage.token)
+    },
+    loadItems(context) {
+      return getItems()
+        .then((response) => {
+          console.log(response.data)
+          context.commit('SET_ITEMS', { items: response.data })
+        })
+        .catch((error) => {
+          console.log('Error retrieving items: ', error)
+        })
+    },
+    deleteItem(context, item) {
+      return deleteItem(item, context.state.jwt.token)
+    },
+    loadCurrentUser(context) {
+      let user = window.localStorage.userData
+        ? JSON.parse(window.localStorage.userData)
+        : {}
+      context.commit('SET_USER_DATA', user)
+    },
+    logout(context) {
+      context.commit('SET_USER_DATA', {})
+      context.commit('SET_JWT_TOKEN', '')
     }
   },
 
   mutations: {
-    setUserData(state, payload) {
+    SET_USER_DATA(state, payload) {
       console.log('setUserData payload = ', payload)
-      state.userData = payload.userData
+      state.userData = payload
+      window.localStorage.setItem('userData', JSON.stringify(payload))
     },
-    setJwtToken(state, payload) {
+    SET_JWT_TOKEN(state, payload) {
       console.log('setJwtToken payload = ', payload)
-      localStorage.token = payload.jwt.token
+      localStorage.token = payload.jwt
       state.jwt = payload.jwt
+    },
+    SET_ITEMS(state, items) {
+      state.items = items
     }
   },
 
   getters: {
     isAuthenticated(state) {
-      return isValidJwt(state.jwt.token)
+      console.log('Valid jwt: ' + isValidJwt(window.localStorage.token))
+      return isValidJwt(window.localStorage.token)
+    },
+    getUserData(state) {
+      console.log(state.userData.email)
+      console.log(state.jwt)
+      return state.userData
     }
   }
 })
 
 export default store
-
-// import { createStore } from "vuex"
-
-// const store = createStore({
-//   state: {
-//     user: {
-//       loggedIn: false,
-//       data: null,
-//       passedVerification: false,
-//       securityQuestion1: "",
-//       securityQuestion2: ""
-//     }
-//   },
-//   getters: {
-//     user(state) {
-//       return state.user
-//     }
-//   },
-//   mutations: {
-//     SET_LOGIN_STATUS(state, val) {
-//       state.user.loggedIn = val
-//     },
-//     SET_USER_DATA(state, data) {
-//       state.user.data = data
-//     },
-//     SET_QUESTION_VERIFICATION_STATUS(state, val) {
-//       state.user.passedVerification = val
-//     }
-//   },
-//   actions: {
-//     async register() {},
-//     async login() {},
-//     async forgotPasswordLogin() {
-//       //Check for security questions if they match
-//     },
-//     async logout() {},
-//     async getUser() {}
-//   }
-// })
-
-// export default store

@@ -1,7 +1,7 @@
 <template lang="">
   <a class="recommendations-card" @click="routeToItem">
-    <div id="image"></div>
-    <img :src="itemImage" alt="item image" id="itemId" />
+    <!-- <div id="image"></div> -->
+    <img src="../assets/defaultPicRec.png" alt="item image" id="itemId" />
     <h3>{{ itemName }}</h3>
     <nav></nav>
   </a>
@@ -57,5 +57,10 @@ export default {
 
 a {
   color: var(--color-primary);
+}
+
+#image {
+  background-image: url('../assets/defaultPicRec.png');
+  width: 100%;
 }
 </style>
