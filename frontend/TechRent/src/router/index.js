@@ -10,6 +10,7 @@ import LogOut from '@/components/LogOut.vue'
 import Admin from '@/Views/Admin.vue'
 import AdminItemList from '@/Views/AdminItemList.vue'
 import AdminComplaintList from '@/Views/AdminComplaintList.vue'
+import Messages from '@/components/Messages.vue'
 
 const router = createRouter({
   linkExactActiveClass: 'active',
@@ -93,6 +94,11 @@ const router = createRouter({
           component: AdminComplaintList
         }
       ]
+    },
+    {
+      path: '/messages',
+      name: 'Messages',
+      component: Messages
     }
   ]
 })

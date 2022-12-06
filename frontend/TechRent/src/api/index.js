@@ -7,6 +7,11 @@ export function postNewItem(item, jwt) {
     headers: { Authorization: `Bearer: ${jwt}` }
   })
 }
+export function submitNewMessage(message, jwt) {
+  return axios.post(`${path}/messages`, message, {
+    headers: { Authorization: `Bearer: ${jwt}` }
+  })
+}
 
 export function getItems() {
   return axios.get(`${path}/items`)

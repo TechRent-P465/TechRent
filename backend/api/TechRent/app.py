@@ -90,6 +90,24 @@ class Items(db.Model):
                   seller_phone=self.seller_phone
                   )
 
+                
+class Messages(db.Model):
+    __tablename__ = 'messages'
+
+    # mid, sender_username, recipient_username, message, sent_at
+    mid = db.Column(db.Integer, unique = True, primary_key=True)
+    sender_username = db.Column(db.String(50), nullable = False)
+    recipient_username = db.Column(db.String(50), nullable = False)
+    message_text = db.Column(db.String(500), nullable = True)
+    sent_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def to_dict(self):
+      return dict(mid=self.mid,
+                  sender_username=self.sender_username,
+                  recipient_username=self.recipient_username,
+                  message = self.message,
+                  sent_at=self.sent_at.strftime('%Y-%m-%d %H:%M:%S'),
+                  )
 ## decorator
 def token_required(f):
     @wraps(f)
@@ -188,6 +206,22 @@ def create_item():
     app.logger.info(item.id)
 
     return jsonify(item.to_dict()), 201
+
+@app.route('/messages', methods=('POST',))
+@token_required
+def send_message():
+    data = request.get_json()
+    sender_username = data['sender_username']
+    recipient_username = data['recipient']
+    message_text = data['message']
+    #sent_at = data['sent_at']
+    message = Messages(sender_username = sender_username,recipient_username = recipient_username, message_text = message_text)
+    db.session.add(message)
+    db.session.commit()
+    app.logger.info(message.mid)
+
+    return jsonify(message.to_dict()), 201
+    
     
 @app.route('/items', methods=('GET',))
 def fetch_items():

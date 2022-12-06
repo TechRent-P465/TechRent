@@ -3,6 +3,10 @@ import { createStore } from 'vuex'
 // imports of AJAX functions will go here
 import {
   postNewItem,
+<<<<<<< HEAD
+=======
+  submitNewMessage,
+>>>>>>> main
   authenticate,
   register,
   getItems,
@@ -16,6 +20,8 @@ const store = createStore({
     // single source of data
     items: [],
     currentItem: {},
+    messages: [],
+    currentMessage: {},
     userData: {},
     jwt: ''
   },
@@ -43,6 +49,12 @@ const store = createStore({
     submitNewItem(context, item) {
       return postNewItem(item, window.localStorage.token)
     },
+<<<<<<< HEAD
+=======
+    submitMessage(context, message) {
+      return submitNewMessage(message, window.localStorage.token)
+    },
+>>>>>>> main
     loadItems(context) {
       return getItems()
         .then((response) => {
