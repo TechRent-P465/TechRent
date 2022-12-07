@@ -4,7 +4,7 @@
     <div>Description</div>
     <div>Actions</div>
   </div>
-  <div v-for="item in items" :key="item.id" class="flex-table">
+  <div v-for="item in items.items" :key="item.id" class="flex-table">
     <div>{{ item.item_name }}</div>
     <div>{{ item.description.slice(0, 50) + '...' }}</div>
     <div class="actions">
@@ -20,38 +20,11 @@
 import { mapState } from 'vuex'
 export default {
   data() {
-    return {
-      items: [
-        {
-          id: 1,
-          item_name: 'Mock item 1',
-          description:
-            'This is a long paragraph it consists of many mnay many words and many many many and many many manyand many many many and many many many and many many many and many many many and many many many'
-        },
-        {
-          id: 2,
-          item_name: 'Mock item 2',
-          description:
-            'This is a long paragraph it consists of many mnay many words and many many many and many many manyand many many many and many many many and many many many and many many many and many many many'
-        },
-        {
-          id: 3,
-          item_name: 'Mock item 3',
-          description:
-            'This is a long paragraph it consists of many mnay many words and many many many and many many manyand many many many and many many many and many many many and many many many and many many many'
-        },
-        {
-          id: 4,
-          item_name: 'Mock item 4',
-          description:
-            'This is a long paragraph it consists of many mnay many words and many many many and many many manyand many many many and many many many and many many many and many many many and many many many'
-        }
-      ]
-    }
+    return {}
   },
-  //   computed: {
-  //     ...mapState(['items'])
-  //   },
+  computed: {
+    ...mapState(['items'])
+  },
   methods: {
     deleteItem(item) {
       let response = confirm(`Are you sure you want to delete ${item.name}`)

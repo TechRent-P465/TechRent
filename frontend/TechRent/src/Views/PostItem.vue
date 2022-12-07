@@ -43,14 +43,16 @@
           </div>
         </div>
         <div class="input">
-          <label for="brand">Brand</label>
-          <input
-            class="form-input"
-            type="text"
-            name="brand"
-            v-model="brand"
-            placeholder="item brand"
-          />
+          <label for="filter-brand">Brand</label>
+          <select id="filter-brand" name="filter-brand" v-model="brand">
+            <option value="">----</option>
+            <option value="Apple">Apple</option>
+            <option value="Windows">Windows</option>
+            <option value="Samsung">Samsung</option>
+            <option value="Sony">Sony</option>
+            <option value="Bose">Bose</option>
+            <option value="Lenovo">Lenovo</option>
+          </select>
           <div
             class="error"
             v-for="(error, index) of v$.brand.$errors"
@@ -75,6 +77,20 @@
           >
             {{ error.$message }}
           </div>
+        </div>
+        <div class="input">
+          <label for="filter-device-type">Device Type</label>
+          <select
+            id="filter-device-type"
+            name="filter-device-type"
+            v-model="item_type"
+          >
+            <option value="">----</option>
+            <option value="audio">audio</option>
+            <option value="video">video</option>
+            <option value="computer">computer</option>
+            <option value="entertainment">entertainment</option>
+          </select>
         </div>
         <div class="input">
           <label for="price">Location</label>
@@ -154,6 +170,7 @@ export default {
       item_name: '',
       description: '',
       brand: '',
+      item_type: '',
       price: 0,
       location: '',
       image_url: '',
@@ -170,6 +187,7 @@ export default {
           item_name: this.item_name,
           description: this.description,
           brand: this.brand,
+          item_type: this.item_type,
           seller_id: JSON.parse(window.localStorage.userData).uid,
           price: this.price,
           location: this.location,
@@ -177,6 +195,7 @@ export default {
           email: this.email,
           phone: this.phone
         }
+        console.log(data)
 
         this.$store.dispatch('submitNewItem', data).then(() => {
           this.$router.push('/browse')

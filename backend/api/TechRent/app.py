@@ -61,11 +61,12 @@ class Users(db.Model):
 class Items(db.Model):
     __tablename__ = 'items'
 
-    # id, item_name, rating, brand, price, location, seller, image_url, posted_at
+    # id, item_name, rating, brand, type, price, location, seller, image_url, posted_at
     id = db.Column(db.Integer, unique = True, primary_key=True)
     item_name = db.Column(db.String(50), nullable = False)
     rating = db.Column(db.Integer, nullable = True)
     brand = db.Column(db.String(50), nullable = True)
+    item_type = db.Column(db.Text, nullable = True)
     price = db.Column(db.Float, nullable = False)
     location = db.Column(db.Text, nullable = False)
     seller_id = db.Column(db.Integer, db.ForeignKey('users.uid'))
@@ -74,6 +75,19 @@ class Items(db.Model):
     description = db.Column(db.Text, nullable = False)
     seller_email = db.Column(db.Text, nullable=True)
     seller_phone = db.Column(db.Text, nullable=True)
+
+    def __init__(self, item_name, brand, item_type, price, location, seller_id, image_url, posted_at, description, seller_email, seller_phone):
+        self.item_name = item_name
+        self.brand = brand
+        self.item_type = item_type
+        self.price = price
+        self.location = location
+        self.seller_id = seller_id
+        self.image_url = image_url
+        self.posted_at = posted_at
+        self.description = description
+        self.seller_email = seller_email
+        self.seller_phone = seller_phone
 
     def to_dict(self):
       return dict(id=self.id,
@@ -84,6 +98,7 @@ class Items(db.Model):
                   price=self.price,
                   rating=self.rating,
                   brand=self.brand,
+                  item_type=self.item_type,
                   image_url=self.image_url,
                   description=self.description,
                   seller_email=self.seller_email,
@@ -101,12 +116,18 @@ class Messages(db.Model):
     message_text = db.Column(db.String(500), nullable = True)
     sent_at = db.Column(db.DateTime, default=datetime.utcnow)
 
+    def __init__(self, sender_username, recipient_username, message_text, sent_at):
+        self.sender_username = sender_username
+        self.recipient_username = recipient_username
+        self.message_text = message_text
+        self.sent_at = sent_at
+
     def to_dict(self):
       return dict(mid=self.mid,
                   sender_username=self.sender_username,
                   recipient_username=self.recipient_username,
-                  message = self.message,
-                  sent_at=self.sent_at.strftime('%Y-%m-%d %H:%M:%S'),
+                  message = self.message_text,
+                  sent_at=self.sent_at
                   )
 ## decorator
 def token_required(f):
@@ -187,11 +208,12 @@ def login():
     return jsonify({ 'token': token, 'user': user.to_dict() })
     
 @app.route('/items/', methods=('POST',))
-@token_required
+#@token_required
 def create_item():
     data = request.get_json()
     item_name = data['item_name']
     brand = data['brand']
+    item_type = data['item_type']
     price = data['price']
     location = data['location']
     seller_id = data['seller_id']
@@ -200,22 +222,21 @@ def create_item():
     description = data['description']
     seller_email = data['email']
     seller_phone = data['phone']
-    item = Items(item_name=item_name, brand=brand, price=price, location=location, seller_id=seller_id, image_url=image_url, posted_at=posted_at, description=description, seller_email=seller_email, seller_phone=seller_phone)
+    item = Items(item_name=item_name, brand=brand, item_type=item_type, price=price, location=location, seller_id=seller_id, image_url=image_url, posted_at=posted_at, description=description, seller_email=seller_email, seller_phone=seller_phone)
     db.session.add(item)
     db.session.commit()
     app.logger.info(item.id)
-
     return jsonify(item.to_dict()), 201
 
 @app.route('/messages', methods=('POST',))
-@token_required
+#@token_required
 def send_message():
     data = request.get_json()
     sender_username = data['sender_username']
     recipient_username = data['recipient']
     message_text = data['message']
-    #sent_at = data['sent_at']
-    message = Messages(sender_username = sender_username,recipient_username = recipient_username, message_text = message_text)
+    sent_at = datetime.now()
+    message = Messages(sender_username = sender_username,recipient_username = recipient_username, message_text = message_text, sent_at = sent_at)
     db.session.add(message)
     db.session.commit()
     app.logger.info(message.mid)

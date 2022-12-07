@@ -4,12 +4,11 @@
     <nav>
       <router-link to="/">Home</router-link>
       <router-link v-if="!isAuthenticated" to="/login">Login</router-link>
-      <a v-if="isAuthenticated" @click="confirmLogout">Log Out</a>
+      <a id="logout" v-if="isAuthenticated" @click="confirmLogout">Log Out</a>
       <router-link to="/browse">Browse</router-link>
       <router-link v-if="isAuthenticated" to="/post">Post Item</router-link>
       <router-link v-if="isAdmin" to="/admin/items">Admin</router-link>
-      <router-link v-if="isAuthenticated" to="/messages">Messages</router-link>
-      <button v-if="userData.name" class="username" @click="openNav">
+      <button v-if="isAuthenticated" class="username" @click="openNav">
         Welcome, {{ userData.name }}
       </button>
       <div id="mySidenav" class="sidenav">
@@ -22,7 +21,11 @@
             <a>Account Details</a>
           </li>
           <li>
-            <a>Messages</a>
+            <a>
+              <router-link v-if="isAuthenticated" to="/messages"
+                >Messages</router-link
+              >
+            </a>
           </li>
         </ul>
       </div>
@@ -53,8 +56,12 @@
 import LogoLink from '@/components/LogoLink.vue'
 import BrowseItems from '@/Views/BrowseItems.vue'
 import { mapState } from 'vuex'
+import { authenticate } from './api'
 
 export default {
+  data() {
+    return { authenticated: false }
+  },
   mounted() {
     this.$store.dispatch('loadItems')
     this.$store.dispatch('loadCurrentUser')
@@ -65,10 +72,20 @@ export default {
   },
   computed: {
     isAuthenticated() {
-      return this.$store.getters.isAuthenticated
+      // if (!this.$store.getters.isAuthenticated) {
+      //   this.authenticated = false
+      //   this.$store.dispatch('logout')
+      // } else {
+      //   this.authenticated = true
+      // }
+      // return this.$store.getters.isAuthenticated
+      this.authenticated = this.$store.getters.isAuthenticated
+      console.log('Authenticated = ', this.authenticated)
+      return this.authenticated
     },
     isAdmin() {
       console.log(
+        'Admin = ',
         window.localStorage.userData &&
           JSON.parse(window.localStorage.userData).email == 'admin@test.com'
       )
@@ -80,6 +97,7 @@ export default {
     confirmLogout(e) {
       let logout = confirm('Are you sure you want to logout?')
       if (logout) {
+        this.authenticated = false
         this.$store.dispatch('logout')
       } else {
         e.preventDefault()
@@ -131,6 +149,10 @@ nav a {
 
 nav a:first-of-type {
   border: 0;
+}
+
+#logout {
+  color: var(--color-pop);
 }
 
 header {

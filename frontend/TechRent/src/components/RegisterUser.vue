@@ -106,7 +106,7 @@ export default {
 <style>
 .register-view {
   position: fixed;
-  z-index: 10000;
+  z-index: 10000000000;
   top: 70%;
   left: 50%;
   transform: translate(-50%, -65%);

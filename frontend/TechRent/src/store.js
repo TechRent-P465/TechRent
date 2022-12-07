@@ -92,7 +92,12 @@ const store = createStore({
 
   getters: {
     isAuthenticated(state) {
-      console.log('Valid jwt: ' + isValidJwt(window.localStorage.token))
+      console.log(
+        'Valid jwt: ' +
+          isValidJwt(window.localStorage.token) +
+          ' token = ' +
+          window.localStorage.token
+      )
       return isValidJwt(window.localStorage.token)
     },
     getUserData(state) {
