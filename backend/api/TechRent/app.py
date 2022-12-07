@@ -15,7 +15,7 @@ import jwt
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Test.sqlite3'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///TechRent.sqlite3'
 app.config['SECRET_KEY'] = "randostring"
 db = SQLAlchemy(app)
 
