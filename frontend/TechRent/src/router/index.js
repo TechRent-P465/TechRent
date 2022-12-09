@@ -11,6 +11,10 @@ import Admin from '@/Views/Admin.vue'
 import AdminItemList from '@/Views/AdminItemList.vue'
 import AdminComplaintList from '@/Views/AdminComplaintList.vue'
 import Messages from '@/components/Messages.vue'
+import Payment from '@/components/Payment.vue'
+import Success from '../components/Success.vue'
+import ErrorPage from'../components/ErrorPage.vue'
+import Refund from '../components/Refund.vue'
 
 const router = createRouter({
   linkExactActiveClass: 'active',
@@ -99,6 +103,26 @@ const router = createRouter({
       path: '/messages',
       name: 'Messages',
       component: Messages
+    },
+    {
+      path: '/payment',
+      name: 'Payment',
+      component: Payment,
+    },
+    {
+      path: '/success',
+      name: 'Success',
+      component: Success,
+    },
+    {
+      path: '/error',
+      name: 'Error',
+      component: ErrorPage,
+    },
+    {
+      path: '/refund',
+      name: 'Refund',
+      component: Refund,
     }
   ]
 })

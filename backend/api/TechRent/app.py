@@ -129,6 +129,15 @@ class Messages(db.Model):
                   message = self.message_text,
                   sent_at=self.sent_at
                   )
+class RefundReq(db.Model):
+    __tablename__ = 'refund'
+
+    name = db.Column(db.String(50), nullable = False)
+    email = db.Column(db.String(50), primary_key=True, nullable = False)
+    question1 = db.Column(db.String(256), nullable = False)
+    
+    def to_dict(self):
+        return dict( name=self.name, email=self.email, question1=self.question1)
 ## decorator
 def token_required(f):
     @wraps(f)
