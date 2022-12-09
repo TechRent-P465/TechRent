@@ -25,7 +25,7 @@
       </div>
       <div class="login-question">
         <a class="forgot-password" @click="routeToForgotPassword">
-          Forget your password?
+          Forgot your password?
         </a>
       </div>
       <div class="login-question">

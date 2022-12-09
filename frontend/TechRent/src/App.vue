@@ -9,6 +9,7 @@
       <router-link v-if="isAuthenticated" to="/post">Post Item</router-link>
       <router-link v-if="isAdmin" to="/admin/items">Admin</router-link>
       <router-link v-if="isAuthenticated" to="/messages">Messages</router-link>
+      <!-- <router-link to="/payment">Payment</router-link> -->
       <button v-if="userData.name" class="username" @click="openNav">
         Welcome, {{ userData.name }}
       </button>

@@ -21,6 +21,7 @@
             <button type="submit" class="search-button">
               <img src="../assets/search.png" class="my-icon" />
             </button>
+            <a style="position: center; margin-top: 3cm;margin-left:10cm;right:-10mm; bottom:50px"  href="/refund" type="submit" class="request-button">Request a refund</a>
           </form>
           <div class="filters">
             <div class="filter-container">
