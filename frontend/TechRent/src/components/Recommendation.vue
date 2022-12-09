@@ -1,12 +1,18 @@
 <template lang="">
   <a class="recommendations-card" @click="routeToItem">
-    <!-- <div id="image"></div> -->
-    <img src="../assets/defaultPicRec.png" alt="item image" id="itemId" />
-    <h3>{{ itemName }}</h3>
+    <div id="image" :style="style"></div>
+    <!-- <img :src="device.image_url" alt="item image" id="itemId" /> -->
+    <h2>{{ device.item_name }}</h2>
+    <div class="type-and-price">
+      <p>{{ device.item_type }}</p>
+      <p>${{ device.price }}</p>
+    </div>
     <nav></nav>
   </a>
 </template>
 <script>
+import { integer } from '@vuelidate/validators'
+
 export default {
   name: 'purchaseItem',
   data() {
@@ -14,29 +20,22 @@ export default {
   },
   methods: {
     routeToItem() {
-      this.$router.push('/itempage')
+      this.$router.push(`/itempage/${this.device.id}`)
     }
   },
-  props: {
-    itemImage: {
-      type: String,
-      default: '../assets/defaultPicRec.png'
-    },
-    itemName: {
-      type: String,
-      required: true
-    },
-    itemType: String,
-    itemBrand: String,
-    itemLocation: String,
-    itemPrice: String
+  props: ['device', 'id'],
+  computed: {
+    style() {
+      console.log('Image url: ' + this.device.image_url)
+      return 'background-image: url(' + this.device.image_url + ')'
+    }
   }
 }
 </script>
 <style scoped>
 .recommendations-card {
   width: 200px;
-  height: 200px;
+  height: 240px;
   background: var(--color-highlight);
   padding: 20px 15px;
   border: 5px solid var(--color-tertiary);
@@ -51,7 +50,7 @@ export default {
   background-color: var(--color-highlight);
   box-shadow: inset 0 0 0 2000px rgba(62, 124, 177, 0.2);
   width: 195px;
-  height: 195px;
+  height: 235px;
   margin-right: 5px;
 }
 
@@ -59,8 +58,8 @@ a {
   color: var(--color-primary);
 }
 
-#image {
-  background-image: url('../assets/defaultPicRec.png');
-  width: 100%;
+.type-and-price {
+  display: flex;
+  justify-content: space-between;
 }
 </style>

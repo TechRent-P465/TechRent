@@ -46,7 +46,7 @@ const router = createRouter({
       component: BrowseItems
     },
     {
-      path: '/itempage',
+      path: '/itempage/:id',
       name: 'ItemPage',
       component: ItemPage,
       params: true

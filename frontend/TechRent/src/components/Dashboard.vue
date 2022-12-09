@@ -1,51 +1,49 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template lang="">
-  <div class="container">
-    <div class="banner image-banner">
-      <div class="banner-container">
-        <div class="banner-section1">
-          <h1>Electronic Device Rental</h1>
-          <h2>A new way to try out that device you have been longing to buy</h2>
-        </div>
+  <div class="banner image-banner">
+    <div class="banner-container">
+      <div class="banner-section1">
+        <h1>Electronic Device Rental</h1>
+        <h2>A new way to try out that device you have been longing to buy</h2>
       </div>
     </div>
+  </div>
 
-    <div class="search-container">
-      <form action="" class="search-content">
-        <input
-          class="search-bar"
-          type="text"
-          v-model="search"
-          placeholder="Search For Electronic Devices"
-        />
-        <button type="submit" class="search-button">
-          <img src="../assets/search.png" class="my-icon" />
-        </button>
-      </form>
+  <div class="search-container">
+    <form action="" class="search-content">
+      <input
+        class="search-bar"
+        type="text"
+        v-model="search"
+        placeholder="Search For Electronic Devices"
+      />
+      <button type="submit" class="search-button">
+        <img src="../assets/search.png" class="my-icon" />
+      </button>
+    </form>
+  </div>
+
+  <div v-if="search" class="devices-container">
+    <div class="devices-header">
+      <h2>Searched Items</h2>
     </div>
-
-    <div v-if="search" class="devices-container">
-      <div class="devices-header">
-        <h2>Searched Items</h2>
-      </div>
-      <div class="devices-content">
-        <div v-for="device in filteredDevices" class="devices-item-container">
-          <Recommendation :itemImage="device.image" :itemName="device.name" />
-        </div>
+    <div class="devices-content">
+      <div v-for="device in filteredDevices" class="devices-item-container">
+        <Recommendation :device="device" class="recommendation" />
       </div>
     </div>
+  </div>
 
-    <div class="recommendations-container">
-      <div class="recommendations-header">
-        <h2>Recommended Items</h2>
-      </div>
-      <div class="recommendations-content">
-        <div
-          v-for="device in recommendedDevices"
-          class="recommendations-item-container"
-        >
-          <Recommendation :item-image="device.image" :item-name="device.name" />
-        </div>
+  <div class="recommendations-container">
+    <div class="recommendations-header">
+      <h2>Recommended Items</h2>
+    </div>
+    <div class="recommendations-content">
+      <div
+        v-for="device in recommendedDevices"
+        class="recommendations-item-container"
+      >
+        <Recommendation :device="device" class="recommendation" />
       </div>
     </div>
   </div>
@@ -53,75 +51,13 @@
 
 <script>
 import Recommendation from './Recommendation.vue'
+import { mapState } from 'vuex'
 
 export default {
   components: { Recommendation },
   data() {
     return {
-      devices: [
-        {
-          image: '@/assets/defaultPicRec.png',
-          name: 'Device Name'
-        },
-        {
-          image: '@assets/defaultPicRec.png',
-          name: 'Device 2 Name'
-        },
-        {
-          image: '@assets/defaultPicRec.png',
-          name: 'Device 3 Name'
-        },
-        {
-          image: '@assets/defaultPicRec.png',
-          name: 'Device 4 Name'
-        },
-        {
-          image: '@assets/defaultPicRec.png',
-          name: 'Device 5 Name'
-        },
-        {
-          image: '@assets/defaultPicRec.png',
-          name: 'Device 6 Name'
-        },
-        {
-          image: '@assets/defaultPicRec.png',
-          name: 'Device 7 Name'
-        },
-        {
-          image: '@assets/defaultPicRec.png',
-          name: 'Device 8 Name'
-        },
-        {
-          image: '@assets/defaultPicRec.png',
-          name: 'Device 9 Name'
-        },
-        {
-          image: '@assets/defaultPicRec.png',
-          name: 'Device 10 Name'
-        }
-      ],
-      recommendedDevices: [
-        {
-          image: '@/assets/defaultPicRec.png',
-          name: 'Device Name'
-        },
-        {
-          image: '@/assets/defaultPicRec.png',
-          name: 'Device 2 Name'
-        },
-        {
-          image: '@/assets/defaultPicRec.png',
-          name: 'Device 3 Name'
-        },
-        {
-          image: '@/assets/defaultPicRec.png',
-          name: 'Device 4 Name'
-        },
-        {
-          image: '@/assets/defaultPicRec.png',
-          name: 'Device 5 Name'
-        }
-      ],
+      recommendedDevices: [],
       search: ''
     }
   },
@@ -136,11 +72,16 @@ export default {
     */
   },
   computed: {
+    recommendedDevices: function () {
+      return this.items.items.slice(0, 10)
+    },
     filteredDevices: function () {
-      return this.devices.filter((device) => {
-        return device.name.match(this.search)
+      console.log(this.items.items)
+      return this.items.items.filter((device) => {
+        return device.item_name.match(this.search)
       })
-    }
+    },
+    ...mapState(['items'])
   }
 }
 </script>

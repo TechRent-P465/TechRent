@@ -1,112 +1,119 @@
 <template lang="">
-  <div class="container">
-    <div class="banner image-banner">
-      <div class="banner-container">
-        <div class="banner-section1">
-          <h1>Browse Electronic Devices</h1>
-          <h2>Search, filter, and locate items</h2>
-        </div>
+  <div class="banner image-banner">
+    <div class="banner-container">
+      <div class="banner-section1">
+        <h1>Browse Electronic Devices</h1>
+        <h2>Search, filter, and locate items</h2>
       </div>
     </div>
-    <div class="content">
-      <div class="items-container">
-        <div class="search-container">
-          <form action="" class="search-content">
-            <input
-              class="search-bar"
-              type="text"
-              v-model="search"
-              placeholder="Search For Electronic Devices"
-            />
-            <button type="submit" class="search-button">
-              <img src="../assets/search.png" class="my-icon" />
-            </button>
-            <a style="position: center; margin-top: 3cm;margin-left:10cm;right:-10mm; bottom:50px"  href="/refund" type="submit" class="request-button">Request a refund</a>
-          </form>
-          <div class="filters">
-            <div class="filter-container">
-              <label for="filter-price">Price</label>
-              <select
-                id="filter-price"
-                name="filter-price"
-                v-model="selectedPrice"
-              >
-                <option value="">----</option>
-                <option value="low-high">low-high</option>
-                <option value="high-low">high-low</option>
-              </select>
-            </div>
-            <div class="filter-container">
-              <label for="filter-device-type">Device Type</label>
-              <select
-                id="filter-device-type"
-                name="filter-device-type"
-                v-model="selectedType"
-              >
-                <option value="">----</option>
-                <option value="audio">audio</option>
-                <option value="video">video</option>
-                <option value="computer">computer</option>
-                <option value="entertainment">entertainment</option>
-              </select>
-            </div>
-            <div class="filter-container">
-              <label for="filter-location">Location</label>
-              <select
-                id="filter-location"
-                name="filter-location"
-                v-model="selectedLocation"
-              >
-                <option value="">----</option>
-                <option value="<5miles">5miles</option>
-                <option value="10 - 50miles">10 - 50miles</option>
-                <option value=">100miles">100miles</option>
-              </select>
-            </div>
-            <div class="filter-container">
-              <label for="filter-brand">Brand</label>
-              <select
-                id="filter-brand"
-                name="filter-brand"
-                v-model="selectedBrand"
-              >
-                <option value="">----</option>
-                <option value="Apple">Apple</option>
-                <option value="Windows">Windows</option>
-                <option value="Samsung">Samsung</option>
-                <option value="Bose">Bose</option>
-                <option value="Lenovo">Lenovo</option>
-              </select>
-            </div>
-          </div>
-        </div>
+  </div>
+  <div class="content">
+    <div class="items-container">
+      <div class="search-container">
+        <form action="" class="search-content">
+          <input
+            class="search-bar"
+            type="text"
+            v-model="search"
+            placeholder="Search For Electronic Devices"
+          />
+          <button type="submit" class="search-button">
+            <img src="../assets/search.png" class="my-icon" />
+          </button>
+        </form>
+        <a
+          style="
+            position: center;
+            margin-top: 3cm;
+            margin-left: 10cm;
+            right: -10mm;
+            bottom: 50px;
+          "
+          href="/refund"
+          type="submit"
+          class="request-button"
+          >Request a refund</a
+        >
 
-        <div class="devices-container">
-          <div class="devices-header">
-            <h2>Searched Items</h2>
-          </div>
-          <div class="devices-content">
-            <div
-              v-for="device in filteredDevices"
-              class="devices-item-container"
+        <div class="filters">
+          <div class="filter-container">
+            <label for="filter-price">Price</label>
+            <select
+              id="filter-price"
+              name="filter-price"
+              v-model="selectedPrice"
             >
-              <Recommendation
-                :item-image="device.image"
-                :item-name="device.name"
-                class="recommendation"
-              />
-            </div>
+              <option value="">----</option>
+              <option value="low-high">low-high</option>
+              <option value="high-low">high-low</option>
+            </select>
+          </div>
+          <div class="filter-container">
+            <label for="filter-device-type">Device Type</label>
+            <select
+              id="filter-device-type"
+              name="filter-device-type"
+              v-model="selectedType"
+            >
+              <option value="">----</option>
+              <option value="audio">audio</option>
+              <option value="video">video</option>
+              <option value="computer">computer</option>
+              <option value="entertainment">entertainment</option>
+            </select>
+          </div>
+          <div class="filter-container">
+            <label for="filter-location">Location</label>
+            <select
+              id="filter-location"
+              name="filter-location"
+              v-model="selectedLocation"
+            >
+              <option value="">----</option>
+              <option value="<5miles">5miles</option>
+              <option value="10 - 50miles">10 - 50miles</option>
+              <option value=">100miles">100miles</option>
+            </select>
+          </div>
+          <div class="filter-container">
+            <label for="filter-brand">Brand</label>
+            <select
+              id="filter-brand"
+              name="filter-brand"
+              v-model="selectedBrand"
+            >
+              <option value="">----</option>
+              <option value="Apple">Apple</option>
+              <option value="Windows">Windows</option>
+              <option value="Samsung">Samsung</option>
+              <option value="Sony">Sony</option>
+              <option value="Bose">Bose</option>
+              <option value="Lenovo">Lenovo</option>
+            </select>
           </div>
         </div>
       </div>
-      <div class="map-container">
-        <h1>PLACEHOLDER MAP</h1>
+
+      <div class="devices-container">
+        <div class="devices-header">
+          <h2>Searched Items</h2>
+          <hr />
+        </div>
+        <div class="devices-content">
+          <div v-for="device in filteredDevices" class="devices-item-container">
+            <Recommendation :device="device" class="recommendation" />
+          </div>
+        </div>
       </div>
     </div>
+    <!-- <div class="map-container">
+      <h1>PLACEHOLDER MAP</h1>
+    </div> -->
   </div>
 </template>
 <script>
 import Recommendation from '@/components/Recommendation.vue'
+import { mapState } from 'vuex'
 export default {
   components: { Recommendation },
   data() {
@@ -115,112 +122,19 @@ export default {
       selectedPrice: '',
       selectedType: '',
       selectedLocation: '',
-      selectedBrand: '',
-      /* replace with backend devices */
-      devices: [
-        {
-          image: '@/assets/defaultPicRec.png',
-          name: 'Device Name',
-          type: '',
-          brand: 'Apple',
-          location: '<5miles',
-          price: '60'
-        },
-        {
-          image: '@assets/defaultPicRec.png',
-          name: 'Device 2 Name',
-          type: '',
-          brand: '',
-          location: '',
-          price: '80'
-        },
-        {
-          image: '@assets/defaultPicRec.png',
-          name: 'Device 3 Name',
-          type: 'computer',
-          brand: 'Windows',
-          location: '10 - 50miles',
-          price: '45'
-        },
-        {
-          image: '@assets/defaultPicRec.png',
-          name: 'Device 4 Name',
-          type: 'DefaultType1',
-          brand: 'Apple',
-          location: '',
-          price: '90'
-        },
-        {
-          image: '@assets/defaultPicRec.png',
-          name: 'Device 5 Name',
-          type: 'DefaultType1',
-          brand: '',
-          location: '',
-          price: '100'
-        },
-        {
-          image: '@assets/defaultPicRec.png',
-          name: 'Device 6 Name',
-          type: 'DefaultType1',
-          brand: '',
-          location: '',
-          price: '0'
-        },
-        {
-          image: '@assets/defaultPicRec.png',
-          name: 'Device 7 Name',
-          type: 'DefaultType1',
-          brand: '',
-          location: '',
-          price: '86'
-        },
-        {
-          image: '@assets/defaultPicRec.png',
-          name: 'Device 8 Name',
-          type: 'DefaultType1',
-          brand: '',
-          location: '',
-          price: '2.3'
-        },
-        {
-          image: '@assets/defaultPicRec.png',
-          name: 'Device 9 Name',
-          type: 'DefaultType1',
-          brand: '',
-          location: '',
-          price: '100'
-        },
-        {
-          image: '@assets/defaultPicRec.png',
-          name: 'Device 10 Name',
-          type: 'DefaultType1',
-          brand: '',
-          location: '',
-          price: '200'
-        }
-      ]
+      selectedBrand: ''
     }
   },
   methods() {},
-  created() {
-    // get request
-    /*
-    .then(function(data){
-      this.recommendedDevices = data.body.slice(0,10);
-      this.devices = data.body
-    })
-    */
-  },
-  /* Filtering of devices: not working, changed && to || just for testing */
   computed: {
     filteredDevices: function () {
-      return this.devices
+      return this.items.items
         .filter((device) => {
           return (
-            device.name.match(this.search) &&
+            device.item_name.match(this.search) &&
             device.brand.match(this.selectedBrand) &&
-            device.location.match(this.selectedLocation) &&
-            device.type.match(this.selectedType)
+            //device.location.match(this.selectedLocation)
+            device.item_type.match(this.selectedType)
           )
         })
         .sort((a, b) => {
@@ -230,7 +144,8 @@ export default {
             return b.price - a.price
           }
         })
-    }
+    },
+    ...mapState(['items'])
   }
 }
 </script>
@@ -267,7 +182,7 @@ export default {
 }
 
 .items-container {
-  width: 45%;
+  width: 100%;
 }
 
 .map-container {
