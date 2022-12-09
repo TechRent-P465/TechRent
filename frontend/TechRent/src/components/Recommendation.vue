@@ -1,11 +1,11 @@
 <template lang="">
   <a class="recommendations-card" @click="routeToItem">
-    <!-- <div id="image"></div> -->
-    <img src="../assets/defaultPicRec.png" alt="item image" id="itemId" />
-    <h2>{{ itemName }}</h2>
+    <div id="image" :style="style"></div>
+    <!-- <img :src="device.image_url" alt="item image" id="itemId" /> -->
+    <h2>{{ device.item_name }}</h2>
     <div class="type-and-price">
-      <p>{{ itemType }}</p>
-      <p>${{ itemPrice }}</p>
+      <p>{{ device.item_type }}</p>
+      <p>${{ device.price }}</p>
     </div>
     <nav></nav>
   </a>
@@ -20,23 +20,15 @@ export default {
   },
   methods: {
     routeToItem() {
-      this.$router.push(`/itempage/${this.id}`)
+      this.$router.push(`/itempage/${this.device.id}`)
     }
   },
-  props: {
-    itemImage: {
-      type: String,
-      default: '../assets/defaultPicRec.png'
-    },
-    itemName: {
-      type: String,
-      required: true
-    },
-    id: Number,
-    itemType: String,
-    itemBrand: String,
-    itemLocation: String,
-    itemPrice: String
+  props: ['device', 'id'],
+  computed: {
+    style() {
+      console.log('Image url: ' + this.device.image_url)
+      return 'background-image: url(' + this.device.image_url + ')'
+    }
   }
 }
 </script>
@@ -64,11 +56,6 @@ export default {
 
 a {
   color: var(--color-primary);
-}
-
-#image {
-  background-image: url('../assets/defaultPicRec.png');
-  width: 100%;
 }
 
 .type-and-price {

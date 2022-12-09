@@ -29,10 +29,7 @@
     </div>
     <div class="devices-content">
       <div v-for="device in filteredDevices" class="devices-item-container">
-        <Recommendation
-          :itemImage="device.image_url"
-          :itemName="device.item_name"
-        />
+        <Recommendation :device="device" class="recommendation" />
       </div>
     </div>
   </div>
@@ -46,14 +43,7 @@
         v-for="device in recommendedDevices"
         class="recommendations-item-container"
       >
-        <Recommendation
-          :id="device.id"
-          :item-image="device.image_url"
-          :item-name="device.item_name"
-          :item-type="device.item_type"
-          :item-price="device.price"
-          class="recommendation"
-        />
+        <Recommendation :device="device" class="recommendation" />
       </div>
     </div>
   </div>

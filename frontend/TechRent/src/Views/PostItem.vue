@@ -115,7 +115,8 @@
             class="form-input"
             type="file"
             name="item-image"
-            v-on:change="image_url"
+            ref="file"
+            v-on:change="selectImage"
             accept="image/*"
           />
         </div>
@@ -198,6 +199,7 @@ export default {
         console.log(data)
 
         this.$store.dispatch('submitNewItem', data).then(() => {
+          console.log('Data image: ' + data.image_url)
           this.$router.push('/browse')
           alert('Form submitted successfully')
         })
@@ -205,6 +207,10 @@ export default {
         console.log(this.v$)
         console.log(this.v$.$errors)
       }
+    },
+    selectImage() {
+      this.image_url = URL.createObjectURL(this.$refs.file.files.item(0))
+      // this.previewImage = URL.createObjectURL(this.currentImage);
     }
   },
   validations() {

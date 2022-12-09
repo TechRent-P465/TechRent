@@ -250,7 +250,7 @@ def fetch_items():
     return jsonify([i.to_dict() for i in items])
 
 @app.route('/items/<int:item_id>', methods=('DELETE',))
-@token_required
+#@token_required
 def delete_item(item_id):
     item_to_delete = Items.query.get_or_404(item_id)
     try:

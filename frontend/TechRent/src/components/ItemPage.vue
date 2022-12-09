@@ -20,7 +20,7 @@ export default {
   },
   computed: {
     item: function () {
-      console.log(this.items.items)
+      console.log(this.items.items, 'id = ' + this.itemId)
       return this.items.items.filter((device) => {
         return device.id == this.itemId
       })
