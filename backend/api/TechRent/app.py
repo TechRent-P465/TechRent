@@ -1,6 +1,6 @@
 from ast import JoinedStr
 from logging.handlers import RotatingFileHandler
-from flask import Flask, jsonify, request, session, current_app, Blueprint
+from flask import Flask, jsonify, request, session, current_app, Blueprint, redirect
 from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import desc, func, create_engine
@@ -10,6 +10,13 @@ from functools import wraps
 from datetime import datetime, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 import jwt
+import requests
+from google_auth_oauthlib.flow import Flow
+from google.oauth2 import id_token
+import os
+import pathlib
+import google.auth.transport.requests
+from pip._vendor import cachecontrol
 
 
 app = Flask(__name__)
@@ -174,10 +181,10 @@ def token_required(f):
     return _verify
 
 
-@app.route("/")
+# @app.route("/")
 @cross_origin()
-def helloWorld():
-  return "Hello, cross-origin-world!"
+# def helloWorld():
+#   return "Hello, cross-origin-world!"
 
 
 @app.route("/test",methods=['GET','POST'])
@@ -268,6 +275,72 @@ def delete_item(item_id):
         return jsonify(item_to_delete.to_dict()), 200
     except:
         return "There was an issue deleting the item"
+
+os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+
+GOOGLE_CLIENT_ID = "1086031692923-gtn8n1dn75oq563lkk54ahdsvm886okd.apps.googleusercontent.com"
+client_secrets_file = os.path.join(pathlib.Path(__file__).parent, "client_secret.json")
+
+flow = Flow.from_client_secrets_file(
+    client_secrets_file=client_secrets_file,
+    scopes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"],
+    redirect_uri="http://127.0.0.1:5000/callback"
+)
+def login_is_required(function):
+    def wrapper(*args, **kwargs):
+        if "google_id" not in session:
+            return abort(401)  # Authorization required
+        else:
+            return function()
+
+    return wrapper
+
+@app.route("/")
+def index():
+    return "Hello World <a href='/googlelogin'><button>Login</button></a>"
+
+@app.route("/googlelogin",methods=('GET',))
+def googlelogin():
+    authorization_url, state = flow.authorization_url()
+    session["state"] = state
+
+    return redirect(authorization_url)
+
+
+@app.route("/protected_area")
+@login_is_required
+def protected_area():
+    # return f"Hello {session['name']}! <br/> <a href='/googlelogout'><button>Logout</button></a>"
+    return "protected <a href='/googlelogout'><button>Logout</button></a>"
+    
+
+@app.route("/googlelogout")
+def googlelogout():
+    session.clear()
+    return redirect("/")
+
+@app.route("/callback")
+def callback():
+    flow.fetch_token(authorization_response=request.url)
+
+    if not session["state"] == request.args["state"]:
+        abort(500)  # State does not match!
+
+    credentials = flow.credentials
+    request_session = requests.session()
+    cached_session = cachecontrol.CacheControl(request_session)
+    token_request = google.auth.transport.requests.Request(session=cached_session)
+
+    id_info = id_token.verify_oauth2_token(
+        id_token=credentials._id_token,
+        request=token_request,
+        audience=GOOGLE_CLIENT_ID
+    )
+    # return id_info
+
+    session["google_id"] = id_info.get("sub")
+    session["name"] = id_info.get("name")
+    return redirect("/protected_area")
 
 if __name__ == '__main__':
     with app.app_context():
