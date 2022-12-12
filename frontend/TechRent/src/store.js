@@ -11,6 +11,7 @@ import {
 } from '@/api'
 
 import { isValidJwt } from '@/utils'
+import { refund } from './api'
 
 const store = createStore({
   state: {
@@ -71,6 +72,15 @@ const store = createStore({
     logout(context) {
       context.commit('SET_USER_DATA', {})
       context.commit('SET_JWT_TOKEN', '')
+    },
+    refundItem(context, refundItem) {
+      return refund(refundItem)
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => {
+        console.log("error refunding: ", error)
+      })
     }
   },
 

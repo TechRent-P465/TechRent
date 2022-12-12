@@ -110,13 +110,19 @@ class Messages(db.Model):
                   )
 class RefundReq(db.Model):
     __tablename__ = 'refund'
-
+    id = db.Column(db.Integer, unique = True, primary_key=True)
     name = db.Column(db.String(50), nullable = False)
-    email = db.Column(db.String(50), primary_key=True, nullable = False)
+    email = db.Column(db.String(50), nullable = False)
     question1 = db.Column(db.String(256), nullable = False)
-    
+
+    def __init__(self, name, email, question1):
+        self.name = name
+        self.email = email
+        self.question1 = question1
     def to_dict(self):
         return dict( name=self.name, email=self.email, question1=self.question1)
+    
+
 ## decorator
 def token_required(f):
     @wraps(f)
@@ -163,6 +169,17 @@ def helloWorld():
 def test():
     return jsonify("Hkladjfiasdjfask ")
 
+@app.route('/refund', methods=('POST',))
+def refund():
+    data = request.get_json()
+    print('Request data: ', data)
+    name = data['name']
+    email = data['email']
+    question1 = data['question1']
+    refund_req = RefundReq(name = name, email = email, question1=question1)
+    db.session.add(refund_req)
+    db.session.commit()
+    return jsonify(refund_req.to_dict()), 201
 
 @app.route("/register", methods = ['GET','POST'])
 def register():
