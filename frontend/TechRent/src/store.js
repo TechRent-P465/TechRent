@@ -7,7 +7,8 @@ import {
   authenticate,
   register,
   getItems,
-  deleteItem
+  deleteItem,
+  getMessages
 } from '@/api'
 
 import { isValidJwt } from '@/utils'
@@ -59,6 +60,16 @@ const store = createStore({
           console.log('Error retrieving items: ', error)
         })
     },
+    loadMessages(context) {
+      return getMessages()
+        .then((response) => {
+          console.log(response.data)
+          context.commit('SET_MESSAGES', { messages: response.data })
+        })
+        .catch((error) => {
+          console.log('error retrieving messages: ', error)
+        })
+    },
     deleteItem(context, item) {
       return deleteItem(item, context.state.jwt.token)
     },
@@ -87,6 +98,11 @@ const store = createStore({
     },
     SET_ITEMS(state, items) {
       state.items = items
+    },
+    SET_MESSAGES(state, messages) {
+      console.log(messages.messages)
+      state.messages = messages.messages
+      console.log(state.messages)
     }
   },
 

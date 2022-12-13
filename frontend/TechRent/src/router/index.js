@@ -13,8 +13,9 @@ import AdminComplaintList from '@/Views/AdminComplaintList.vue'
 import Messages from '@/components/Messages.vue'
 import Payment from '@/components/Payment.vue'
 import Success from '../components/Success.vue'
-import ErrorPage from'../components/ErrorPage.vue'
+import ErrorPage from '../components/ErrorPage.vue'
 import Refund from '../components/Refund.vue'
+import store from '@/store.js'
 
 const router = createRouter({
   linkExactActiveClass: 'active',
@@ -74,7 +75,7 @@ const router = createRouter({
       name: 'admin',
       component: Admin,
       beforeEnter(to, from, next) {
-        let authenticated = window.localStorage.token //store.getters.isAuthenticated
+        let authenticated = store.getters.isAuthenticated
         console.log('Authenticated: ' + authenticated)
         console.log('User: ' + JSON.parse(window.localStorage.userData).email)
         if (
@@ -102,27 +103,36 @@ const router = createRouter({
     {
       path: '/messages',
       name: 'Messages',
-      component: Messages
+      component: Messages,
+      beforeEnter(to, from, next) {
+        let authenticated = store.getters.isAuthenticated
+        console.log(authenticated)
+        if (authenticated) {
+          next()
+        } else {
+          next('/login')
+        }
+      }
     },
     {
       path: '/payment',
       name: 'Payment',
-      component: Payment,
+      component: Payment
     },
     {
       path: '/success',
       name: 'Success',
-      component: Success,
+      component: Success
     },
     {
       path: '/error',
       name: 'Error',
-      component: ErrorPage,
+      component: ErrorPage
     },
     {
       path: '/refund',
       name: 'Refund',
-      component: Refund,
+      component: Refund
     }
   ]
 })
