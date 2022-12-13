@@ -265,6 +265,11 @@ def fetch_items():
     items = Items.query.all()
     return jsonify([i.to_dict() for i in items])
 
+@app.route('/messages', methods=('GET',))
+def fetch_messages():
+    messages = Messages.query.all()
+    return jsonify([i.to_dict() for i in messages])
+
 @app.route('/items/<int:item_id>', methods=('DELETE',))
 #@token_required
 def delete_item(item_id):

@@ -17,6 +17,10 @@ export function getItems() {
   return axios.get(`${path}/items`)
 }
 
+export function getMessages() {
+  return axios.get(`${path}/messages`)
+}
+
 export function deleteItem(item, jwt) {
   return axios.delete(`${path}/items/${item.id}`, {
     headers: { Authorization: `Bearer: ${jwt}` }
