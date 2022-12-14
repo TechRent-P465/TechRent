@@ -1,37 +1,38 @@
 <template lang="">
   <div class="banner image-banner">
     <div class="banner-container">
-      <div v-for="i in item">
-        <h1>{{ i.item_name }}</h1>
-        <h2>{{ i.item_type }}</h2>
-        <p>id = {{ itemId }}</p>
+
+        <!-- <div class="image-container">
+          <h1>PLACEHOLDER Image</h1>
+        </div> -->
       </div>
+    </div>
       <div class="content">
         <div class="items-container">
           <div class="info-container">
-            <div class="info-content">
-              <h1 class="">Product Info</h1>
+            <div class="info-content" v-for="i in item">
+              <h1 class="item-content1">Product Info</h1>
               <br />
               <!-- <h2> Product Name: {{aitemname}}</h2><br><br/> -->
               <img
                 src="../assets/taperecorder.jpg"
                 style="width: 200px; left: 300px"
               />
-              <h2 style="top: -35px; right: 45px">
-                Product Name: Taperecorder
+              <h2 class="item-content2" style="top: -35px; right: 45px">
+                Product Name: {{ i.item_name }}
               </h2>
               <br />
-              <h2 style="top: 15px; right: 400px">
-                Price: $20 {{ aitemprice }}
+              <h2 class="item-content3" style="top: 15px; right: 400px">
+                Price: $20 {{ i.price }}
               </h2>
               <br />
-              <h2 style="top: 20px; right: 61px">
-                Brand: Sony{{ aitembrand }}
+              <h2 class="item-content4" style="top: 20px; right: 61px">
+                Brand: Sony{{ i.brand }}
               </h2>
               <br />
               <!-- <h2 > Brand: {{aitembrand}}</h2><br></br> -->
-              <h2 style="top: 20px; right: 39px">
-                Location: Bloomington{{ aitemlocation }}
+              <h2 class="item-content5" style="top: 20px; right: 39px">
+                Location: Bloomington{{ i.location }}
               </h2>
               <br />
             </div>
@@ -64,12 +65,6 @@
             Purchase
           </button>
         </div>
-
-        <!-- <div class="image-container">
-          <h1>PLACEHOLDER Image</h1>
-        </div> -->
-      </div>
-    </div>
   </div>
 </template>
 <script>
@@ -287,5 +282,33 @@ export default {
   border-radius: 5px;
   background-color: var(--color-highlight);
   display: flex;
+}
+.item-content1 {
+  display: flex;
+  top: -60px;
+  justify-content: space-between;
+}
+.item-content2 {
+  left: -440px;
+  top: 50px;
+  display: flex;
+  justify-content: space-between;
+}
+.item-content3 {
+  left: -440px;
+  display: flex;
+  justify-content: space-between;
+}
+.item-content4 {
+  left: -150px;
+  top: -50px;
+  display: flex;
+  justify-content: space-between;
+}
+.item-content5 {
+  left: -50px;
+  top: -100px;
+  display: flex;
+  justify-content: space-between;
 }
 </style>
